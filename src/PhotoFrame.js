@@ -7,47 +7,35 @@ export default function PhotoFrame({isVisible, animalNumber}) {
 
     if(animalNumber == 1){          // elephant cub
         animalPicture =
-        <div>
-            <img src="https://images5.alphacoders.com/342/342827.jpg" alt="Elephant calf" width="500"></img>
-        </div>;
+        <img src="https://images5.alphacoders.com/342/342827.jpg" alt="Elephant cub" width="500"></img>
 
-        message = <label>An elephant cub</label>;
+        message = "An elephant cub";
     }
     else if (animalNumber == 2){    // gazelle
         animalPicture =
-        <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Thompson_gazelle.jpg" alt="Gazelle" width="500"></img>
-        </div>;
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Thompson_gazelle.jpg" alt="Gazelle" width="500"></img>
 
-        message = <label>A gazelle</label>;
+        message = "A gazelle";
     }
     else if (animalNumber == 3){    // lion
         animalPicture =
-        <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Male_Lion_on_Rock.jpg" alt="Lion" width="500"></img>
-        </div>;
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Male_Lion_on_Rock.jpg" alt="Lion" width="500"></img>;
 
-        message = <label>A lion</label>;
+        message = "A lion";
     }
     else{   // fallback case, placeholder photo
         animalPicture =
-        <div>
-            <img src="https://www.clipartqueen.com/image-files/animal-silhouette-tiger-big.jpg" alt="Placeholder photo - silhouette of an animal" width="500"></img>
-        </div>
+        <img src="https://www.clipartqueen.com/image-files/animal-silhouette-tiger-big.jpg" alt="Placeholder photo - silhouette of an animal" width="500"></img>;
     }
 
     if(isVisible)
     {
         return(
             <>
-            {animalPicture}
-            {message}
+                <div>{animalPicture}</div>
+                <label>{message}</label>
             </>
         );
     }
-
-    return(
-        <div></div>
-    );
   
 }

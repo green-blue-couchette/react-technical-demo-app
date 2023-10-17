@@ -16,7 +16,7 @@ function App() {
     setAnimalNumber(newAnimalNumber);
 
     //logging
-    console.log("Animal number changed to" + newAnimalNumber);
+    console.log("Animal number changed to " + newAnimalNumber);
   }
 
 
