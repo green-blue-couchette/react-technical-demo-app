@@ -1,23 +1,33 @@
-import React, {useState, useRef} from 'react';
-import PhotoFrame from './PhotoFrame';
+import React, {useState, useRef, useEffect} from 'react';
+import Pg1AnimalGallery from './Pg1AnimalGallery';
+import Pg2Trains from './Pg2Trains';
+import Pg3Workouts from './Pg3Workouts';
 
 function App() {
-  const [photoIsVisible, setPhotoIsVisible] = useState([true]);
-  const [animalNumber, setAnimalNumber] = useState([1]);
-  const animalNumberRef = useRef();
   
-  function toggleShowPhoto(){
-    setPhotoIsVisible(!photoIsVisible);
+  const [pageNumber, setPageNumber] = useState([1]);
+  const pageNumberRef = useRef();
+
+  const [pageContent, setPageContent] = useState([]);
+  
+  function changeToPage(){
+    const newPageNumber = pageNumberRef.current.value;
+    setPageNumber(newPageNumber);
+
+    // logging
+    console.log("Page changed to " + newPageNumber);
   }
 
-  function updateAnimalNumber(){
-    const newAnimalNumber = animalNumberRef.current.value;
-
-    setAnimalNumber(newAnimalNumber);
-
-    //logging
-    console.log("Animal number changed to " + newAnimalNumber);
-  }
+  useEffect(() => {
+    if(pageNumber == 1 ) // animals gallery
+      setPageContent(<Pg1AnimalGallery/>)
+    else if(pageNumber == 2 ) // trains page
+      setPageContent(<Pg2Trains/>)
+    else if(pageNumber == 3) // workouts page
+      setPageContent(<Pg3Workouts/>)
+    else  // default case, unexistent page
+      setPageContent(<p>Page doesn't exist. Choose between 1-3.</p>)
+  }, [pageNumber])
 
 
   return (
@@ -35,12 +45,16 @@ function App() {
 
       {/*The div contains all my own code.*/}
       <div>
-      <button onClick={toggleShowPhoto}>Show/hide photo!</button>
-      
-      <label>Display animal:</label>
-      <input ref={animalNumberRef} onChange={updateAnimalNumber} value={animalNumber} type="text"></input>
-      <PhotoFrame isVisible={photoIsVisible} animalNumber={animalNumber}/>
+        {/* CODE FOR SWITCHING BETWEEN PAGES START*/}
+        <label>Page: </label>
+        <input ref={pageNumberRef} onChange={changeToPage}  type="text"></input>
+        <hr></hr>
+        {/* CODE FOR SWITCHING BETWEEN PAGES END*/}
+        
+        {pageContent}
+        
       </div>
+
     </>
   );
 
