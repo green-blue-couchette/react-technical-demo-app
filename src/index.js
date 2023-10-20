@@ -1,6 +1,6 @@
 /**
  * Author O.A.
- * Date october-16-2023
+ * Date october-20-2023
  * 
  * V3: Make it a 3-page application.
  * pg 1 = The animal photo gallery

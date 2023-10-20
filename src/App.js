@@ -42,12 +42,13 @@ function App() {
           </a>
         </header>
       </div>
+      <br></br>
 
       {/*The div contains all my own code.*/}
       <div>
         {/* CODE FOR SWITCHING BETWEEN PAGES START*/}
         <label>Page: </label>
-        <input ref={pageNumberRef} onChange={changeToPage}  type="text"></input>
+        <input ref={pageNumberRef} onChange={changeToPage} defaultValue={pageNumber}  type="text"></input>
         <hr></hr>
         {/* CODE FOR SWITCHING BETWEEN PAGES END*/}
         
