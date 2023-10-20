@@ -35,21 +35,20 @@ function App() {
       <div style={{ textAlign: 'center', color: "darkBlue", borderStyle: "dashed"}}>
         <header>
         <p>
-          I built this webapp to help myself re-learn React.
+          I built this web app to help myself re-learn React. <br></br>
+          Here, I collect different mini-applications to showcase my skills and try out ideas. I might incorporate different elements and ideas found here into other, standalone web apps. <br></br>
+          Things here may look incomplete or change. Stay tuned! - Oliver <br></br>
           <br></br>
           Navigate the pages using the input fields.
           <br></br>
-          <br></br>
-          Things may look incomplete or change. Stay tuned!
-          <br></br>
-          - Oliver</p>  
+        </p>  
         </header>
       </div>
       <br></br>
 
       {/*The div contains all my own code.*/}
       <div>
-        {/* CODE FOR SWITCHING BETWEEN PAGES START*/}
+        {/* START CODE FOR SWITCHING BETWEEN PAGES*/}
         <label>Page: </label>
         <form>
           <select onChange={changeToPage} ref={pageNumberRef}>
@@ -58,10 +57,8 @@ function App() {
             <option value="3">Workouts</option>
           </select>
         </form>
-
         <hr></hr>
-
-        {/* CODE FOR SWITCHING BETWEEN PAGES END*/}
+        {/* END CODE FOR SWITCHING BETWEEN PAGES*/}
         
         {pageContent}
         

@@ -2,10 +2,13 @@
  * Author O.A.
  * Date october-20-2023
  * 
- * V3: Make it a 3-page application.
- * pg 1 = The animal photo gallery
- * pg 2 = A train photo (wip)
- * pg 3 = A workout photo (wip)
+ * V3.1
+ * 
+ * TODO: 
+ * x - Prepare to publish repository to GitHub...
+ *    x - Rename this project to "react-technical-demo-app"
+ *    x - Update title of the app and text descriptions where relevant.
+ * 
  */
 
 import React from 'react';
