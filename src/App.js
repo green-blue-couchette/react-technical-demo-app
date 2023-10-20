@@ -40,7 +40,7 @@ function App() {
           Things may look incomplete or change. Stay tuned!
           <br></br>
           <br></br>
-          Navigate pages 1-3 using the input fields!
+          Navigate the pages using the input fields!
           <br></br>
           - Oliver</p>  
         </header>
@@ -51,8 +51,16 @@ function App() {
       <div>
         {/* CODE FOR SWITCHING BETWEEN PAGES START*/}
         <label>Page: </label>
-        <input ref={pageNumberRef} onChange={changeToPage} defaultValue={pageNumber}  type="text"></input>
+        <form>
+          <select onChange={changeToPage} ref={pageNumberRef}>
+            <option value="1">Animals gallery</option>
+            <option value="2">Trains</option>
+            <option value="3">Workouts</option>
+          </select>
+        </form>
+
         <hr></hr>
+
         {/* CODE FOR SWITCHING BETWEEN PAGES END*/}
         
         {pageContent}
