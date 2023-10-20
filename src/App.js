@@ -32,14 +32,14 @@ function App() {
 
   return (
     <>
-      <div style={{ textAlign: 'center', color: "lightBlue", borderStyle: "dashed"}}>
+      <div style={{ textAlign: 'center', color: "darkBlue", borderStyle: "dashed"}}>
         <header>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
+        <p>
+          I built this webapp to help myself re-learn React.
+          <br></br>
+          Navigate pages 1-3 using the input fields!
+          <br></br>
+          - Oliver</p>  
         </header>
       </div>
       <br></br>
