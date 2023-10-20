@@ -37,10 +37,10 @@ function App() {
         <p>
           I built this webapp to help myself re-learn React.
           <br></br>
+          Navigate the pages using the input fields.
+          <br></br>
+          <br></br>
           Things may look incomplete or change. Stay tuned!
-          <br></br>
-          <br></br>
-          Navigate the pages using the input fields!
           <br></br>
           - Oliver</p>  
         </header>
