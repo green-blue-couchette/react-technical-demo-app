@@ -4,7 +4,8 @@ import CFR_chime from "./assets/CFR_chime.wav";
 export default function Pg2Trains() {
 
   useEffect(() => {
-    new Audio(CFR_chime).play();
+    const chime = new Audio(CFR_chime);
+    chime.play().catch((e) => console.error(e + "\n Nothing to do about that."));
   },[]);
 
   return (
