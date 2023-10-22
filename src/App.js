@@ -9,6 +9,26 @@ function App() {
   const pageNumberRef = useRef();
 
   const [pageContent, setPageContent] = useState([]);
+
+  const LOCAL_STORAGE_KEY = "react-technical-demo-app.page";
+
+  // load pageNumber state from local storage, when page starts up
+  useEffect( () => {
+    const storedPage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    setPageNumber(storedPage);
+
+    //logging
+    console.log("Loaded page state from local storage... Page " + storedPage);
+  }, [])
+
+  // save pageNumber state to local storage
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pageNumber));
+
+    // logging
+    console.log("Saved page " + pageNumber + " to local storage");
+  }, [pageNumber])
+  
   
   function changeToPage(){
     const newPageNumber = pageNumberRef.current.value;
@@ -18,6 +38,7 @@ function App() {
     console.log("Page changed to " + newPageNumber);
   }
 
+  // change displayed page
   useEffect(() => {
     if(pageNumber == 1 ) // animals gallery
       setPageContent(<Pg1AnimalGallery/>)
@@ -66,7 +87,6 @@ function App() {
 
     </>
   );
-
   
 }
 
