@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react'
-import CFR_chime from "./assets/CFR_chime.wav";
 import TrainAnnouncementPanel from "./TrainAnnouncementPanel";
 
 export default function Pg2Trains() {
-
-  useEffect(() => {
-    new Audio(CFR_chime).play();
-  },[]);
 
   return (
     <>
