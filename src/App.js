@@ -9,26 +9,6 @@ function App() {
   const pageNumberRef = useRef();
 
   const [pageContent, setPageContent] = useState([]);
-
-  const LOCAL_STORAGE_KEY = "react-technical-demo-app.page";
-
-  // load pageNumber state from local storage, when page starts up
-  useEffect( () => {
-    const storedPageNumber = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    setPageNumber(storedPageNumber);
-
-    //logging
-    console.log("Loaded page state from local storage... Page " + storedPageNumber);
-  }, [])
-
-  // save pageNumber state to local storage
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pageNumber));
-
-    // logging
-    console.log("Saved page " + pageNumber + " to local storage");
-  }, [pageNumber])
-  
   
   function changeToPage(){
     const newPageNumber = pageNumberRef.current.value;
@@ -38,7 +18,6 @@ function App() {
     console.log("Page changed to " + newPageNumber);
   }
 
-  // change displayed page
   useEffect(() => {
     if(pageNumber == 1 ) // animals gallery
       setPageContent(<Pg1AnimalGallery/>)
@@ -73,9 +52,9 @@ function App() {
         <label>Page: </label>
         <form>
           <select onChange={changeToPage} ref={pageNumberRef}>
-            <option value="1" selected={1==pageNumber}>Animals gallery</option>
-            <option value="2" selected={2==pageNumber}>Trains</option>
-            <option value="3" selected={3==pageNumber}>Workouts</option>
+            <option value="1">Animals gallery</option>
+            <option value="2">Trains</option>
+            <option value="3">Workouts</option>
           </select>
         </form>
         <hr></hr>
@@ -87,6 +66,7 @@ function App() {
 
     </>
   );
+
   
 }
 
