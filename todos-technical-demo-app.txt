@@ -1,0 +1,11 @@
+React technical demo app project's todos:
+
+MAKE BRANCH (or not?)
+GENERAL IMPROVEMENTS TO ANIMAL GALLERY PAGE.
+- Update animals page to use a number input box insted of text box.
+- Add message to show "this animal does not exist. Use 1-3."
+
+TRAIN SOUND BRANCH
+    - Add function to parse the text information in the trains announcement page.
+    - Figure out how to put the Train announcement panel to the right of the trains image...
+
