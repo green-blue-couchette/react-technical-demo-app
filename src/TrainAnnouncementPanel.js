@@ -1,5 +1,7 @@
 import React, {useState, useRef} from 'react'
-import CFR_IANCU_REVERB from "./assets/CFR_IANCU_REVERB.wav";
+import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
+import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
+// TODO: Import the "Glasul rotilor de tren" sound file too, aka. the "Bucharest" intro chime.
 
 function makeAnnouncement(){ // TODO: this stub function.
 
@@ -20,9 +22,11 @@ function makeAnnouncement(){ // TODO: this stub function.
 
   // Make API call to Text-to-Speech service.
 
-  // Play intro, wait before playing announcement, play announcement
-  new Audio(CFR_IANCU_REVERB).play();
+  // Choose intro song.
 
+  // Play intro, wait before playing announcement, play announcement
+  new Audio(CFR_TRANSYLVANIA).play();
+  
 }
 
 export default function TrainAnnouncementPanel() {
@@ -49,7 +53,7 @@ export default function TrainAnnouncementPanel() {
       <br></br>
 
       <label htmlFor="startingStation">Starting station: </label>
-      <input type="text" id="startingStation" defaultValue="Bucuresti"></input>
+      <input type="text" id="startingStation" defaultValue="București"></input>
       <br></br>
 
       <label htmlFor="destinationStation">Destination: </label>
@@ -74,7 +78,7 @@ export default function TrainAnnouncementPanel() {
       {/**TODO: Make the checkbox enable/disable the input text field, but make the field keep the text regardless! */}
       <input type="checkbox" id="towardDirection"></input>
       <label htmlFor="towardDirection">Continues toward: </label>
-      <input type="text" id="towardDirection" defaultValue="Targu Mures, Oradea, Baia Mare"></input>
+      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare"></input>
       <br></br>
       <br></br>
 
@@ -88,14 +92,14 @@ export default function TrainAnnouncementPanel() {
       <br></br>
       <input type="radio" id="noStopStations" name="noStops"></input>
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Oradea"></input>
+      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu"></input>
       <br></br>
       <br></br>
 
       
       {/** Structure of the Announcement form...
        * (For future versions:
-       * - <dropdown field>: Operator (SJ (Sweden), MÁV (Hungary), CFR (Romania))
+       * - <dropdown field>: Operator (Amtrak (USA), SJ (Sweden), MÁV (Hungary), CFR (Romania))
        *    Lets user choose which voice will make the announcement, which train type is allowed in the "Train type" dropdown, which default values the form's fields are filled with, which train photos and railway operator images are shown.)
        * 
        * x Announcement style <dropdown field>
