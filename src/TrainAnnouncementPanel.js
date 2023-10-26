@@ -28,11 +28,10 @@ function makeAnnouncement(){ // TODO: this stub function.
   
 }
 
-// LATEST TODO: Set the appropriate input elements to only be ON/usable when the appropriate checkboxes/radio buttons are checked!
-// LEFT TO DO: Make the "Ciceu" textbox disabled if radio button "Does not stop at these stations:" is unchecked.
 export default function TrainAnnouncementPanel() {
 
   const [stopsAtAllStations, setstopsAtAllStations] = useState(true);
+  const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
 
   function togglestopsAtAllStations(){
     setstopsAtAllStations(!stopsAtAllStations);
@@ -96,17 +95,20 @@ export default function TrainAnnouncementPanel() {
       <br></br>
       <br></br>
 
-      {/** TODO: Unchecked checkbox disables the two radio buttons and the input text field "Ciceu" but lets it keep the text. */}
+
+
+      {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
       <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={togglestopsAtAllStations}/>
       <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
       <br></br>
-      {/** TODO: If checked, radio button disables the input text field "Ciceu" but lets it keep the text. Otherwise makes the input text box fillable */}
-      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations}></input>
+      
+      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations} onChange={() => {setOnlyStopsAtFinalStation(true); console.log("only stops at FINAL STATION");}} defaultChecked={onlyStopsAtFinalStation} ></input>
       <label htmlFor="onlyFinalStation">Only stops at final station</label>
       <br></br>
-      <input type="radio" id="noStopStations" name="noStops" disabled={stopsAtAllStations}></input>
+      
+      <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations}></input>
+      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation}></input>
       <br></br>
       <br></br>
 
