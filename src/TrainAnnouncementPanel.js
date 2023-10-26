@@ -32,6 +32,8 @@ export default function TrainAnnouncementPanel() {
 
   const [stopsAtAllStations, setstopsAtAllStations] = useState(true);
   const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
+  const [continuesToward, setContinuesToward] = useState(false);
+  const [fromDirection, setFromDirection] = useState(false);
 
   function togglestopsAtAllStations(){
     setstopsAtAllStations(!stopsAtAllStations);
@@ -82,16 +84,16 @@ export default function TrainAnnouncementPanel() {
       <br></br>
       <br></br>
 
-      {/**TODO: Make the checkbox enable/disable the input text field, but make the field keep the text regardless! */}
-      <input type="checkbox" id="fromDirection"></input>
+      {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
+      <input type="checkbox" id="fromDirection" onChange={() => setFromDirection(!fromDirection)}></input>
       <label htmlFor="fromDirection">From direction: </label>
-      <input type="text" id="fromDirection" defaultValue="Sinaia"></input>
+      <input type="text" id="fromDirection" defaultValue="Sinaia" disabled={!fromDirection}></input>
       <br></br>
 
-      {/**TODO: Make the checkbox enable/disable the input text field, but make the field keep the text regardless! */}
-      <input type="checkbox" id="towardDirection"></input>
+      {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
+      <input type="checkbox" id="towardDirection" onChange={() => setContinuesToward(!continuesToward)}></input>
       <label htmlFor="towardDirection">Continues toward: </label>
-      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare"></input>
+      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare" disabled={!continuesToward}></input>
       <br></br>
       <br></br>
 
