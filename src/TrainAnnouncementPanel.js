@@ -1,7 +1,6 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
 import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
-// TODO: Import the "Glasul rotilor de tren" sound file too, aka. the "Bucharest" intro chime.
 
 function makeAnnouncement(){ // TODO: this stub function.
 
@@ -29,7 +28,22 @@ function makeAnnouncement(){ // TODO: this stub function.
   
 }
 
+// LATEST TODO: Set the appropriate input elements to only be ON/usable when the appropriate checkboxes/radio buttons are checked!
+// LEFT TO DO: Make the "Ciceu" textbox disabled if radio button "Does not stop at these stations:" is unchecked.
 export default function TrainAnnouncementPanel() {
+
+  const [stopsAtAllStations, setstopsAtAllStations] = useState(true);
+
+  function togglestopsAtAllStations(){
+    setstopsAtAllStations(!stopsAtAllStations);
+    // LOGGING / DEBUG. REMOVE THIS SOON!
+    console.log("Toggled stopsAtAllStations");
+  }
+
+  useEffect(()=>{
+    // debug. REMOVE THIS SOON!
+    console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
+  },[stopsAtAllStations]);
 
   return (
     <>
@@ -82,17 +96,17 @@ export default function TrainAnnouncementPanel() {
       <br></br>
       <br></br>
 
-      {/** TODO: Unchecked checkbox disables the two radio buttons and the input text field "Oradea" but lets it keep the text. */}
-      <input type="checkbox" id="skipsSomeStations"/>
-      <label htmlFor="skipsSomeStations">Train skips some stations</label>
+      {/** TODO: Unchecked checkbox disables the two radio buttons and the input text field "Ciceu" but lets it keep the text. */}
+      <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={togglestopsAtAllStations}/>
+      <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
       <br></br>
-      {/** TODO: If checked, radio button disables the input text field "Oradea" but lets it keep the text. Otherwise makes the input text box fillable */}
-      <input type="radio" id="onlyFinalStation" name="noStops"></input>
+      {/** TODO: If checked, radio button disables the input text field "Ciceu" but lets it keep the text. Otherwise makes the input text box fillable */}
+      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations}></input>
       <label htmlFor="onlyFinalStation">Only stops at final station</label>
       <br></br>
-      <input type="radio" id="noStopStations" name="noStops"></input>
+      <input type="radio" id="noStopStations" name="noStops" disabled={stopsAtAllStations}></input>
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu"></input>
+      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations}></input>
       <br></br>
       <br></br>
 
