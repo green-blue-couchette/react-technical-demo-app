@@ -9,15 +9,18 @@ function makeAnnouncement(){ // TODO: this stub function.
 
   // Parse the data from the announcement form, in the right order, into an array into a string.
   /** Announcement structure (preliminary):
-   * Stimati calatori.
-    Trenul <Train type> <train no.> operat de CFR Calatori.
-    Din directia <starting station>, <list of stations>.
-    Soseste in statie la linia <linia>.
-    Si va pleca in directia <list>, <destination station>.
+   * Stimați călători.
+    Trenul <Train type> <train no.> operat de CFR Călători.
+    Din direcția <starting station>, <list of stations>.
+    Soseste în stație la linia <linia>.
+    Și va pleca in direcția <list>, <destination station>.
 
-    Va rugam sa fiti atenti la imbarcarea in vagoane.
-    Va dorim calatorie placuta!
-    
+    Vă rugăm să fiți atenți la îmbarcarea în vagoane.
+    Vă dorim călătorie plăcută!
+   */
+
+  /** Special romanian characters to use:
+   *  Ăă Ââ Îî Șș Țț
    */
 
   /* START OF BUILD ANNOUNCEMENT STRING*/
