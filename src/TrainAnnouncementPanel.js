@@ -8,6 +8,22 @@ export default function TrainAnnouncementPanel() {
   const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
   const [continuesToward, setContinuesToward] = useState(false);
   const [fromDirection, setFromDirection] = useState(false);
+  const [multipleTrainsAtPlatform, setMultipleTrainsAtPlatform] = useState(false);
+
+  const announcementIntroRef = useRef();
+  const trainTypeRef = useRef();
+  const trainNumberRef = useRef();
+
+  const startingStationRef = useRef();
+  const destinationStationRef = useRef();
+  const platformNumberRef = useRef();
+  
+  const fromDirectionStations = useRef();
+  const continuesTowardStations = useRef();
+
+  const doesNotStopAtSelectedStationsRef = useRef();
+
+
 
   function togglestopsAtAllStations(){
     setstopsAtAllStations(!stopsAtAllStations);
@@ -70,7 +86,23 @@ export default function TrainAnnouncementPanel() {
     // Add "we wish you a pleasant journey" (fixed string)
   
     /* END OF BUILD ANNOUNCEMENT STRING*/
-  
+    // DEBUG, LOGGING
+    console.log("Intro type is: ", announcementIntroRef.current.value,
+      ", Train type is", trainTypeRef.current.value,
+      ", Train number is", trainNumberRef.current.value,
+      
+      ", Starting station is", startingStationRef.current.value,
+      ", Destination station is", destinationStationRef.current.value,
+      ", Arrives at platform number", platformNumberRef.current.value,
+      ", multiple trains at platform?", multipleTrainsAtPlatform,
+      ", fromDirection box is checked:", fromDirection,
+      ", fromDirection stations:", fromDirectionStations.current.value,
+      ", continuesToward box is checked", continuesToward,
+      ", continuesToward stations:", continuesTowardStations.current.value,
+      ", stopsAtAllStations is", stopsAtAllStations,
+      "onlyStopsAtFinalStation is", onlyStopsAtFinalStation,
+      ", does not stop at selected stations:", doesNotStopAtSelectedStationsRef.current.value
+      );
   
   
     // Make API call to Text-to-Speech service.
@@ -90,7 +122,7 @@ export default function TrainAnnouncementPanel() {
       <input type="button" defaultValue="Play announcement" onClick={makeAnnouncement} style={{width:"100%"}}/>
 
       <label htmlFor="announcementIntro">Announcement intro: </label>
-      <select style={{width: "71%"}} id="announcementIntro" onChange={() => console.log("Announcement intro was selected")}> {/**TODO */}
+      <select style={{width: "71%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
           <option value="Transylvania">Transylvania</option>
           <option value="Bucharest">Bucharest</option>
       </select>
@@ -98,34 +130,34 @@ export default function TrainAnnouncementPanel() {
 
     {/** Train code inputs */}
       <label htmlFor="trainCode">Train: </label>
-      <select style={{width: "75px"}} id="trainCode" onChange={() => console.log("Train type was selected")}>
+      <select style={{width: "75px"}} id="trainCode" ref={trainTypeRef} onChange={() => console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value)}>
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>
       </select>
 
-      <input type="number" id="trainCode" defaultValue="1741"></input>
+      <input type="number" id="trainCode" defaultValue="1741" ref={trainNumberRef}></input>
       <br></br>
       <br></br>
 
 
     {/** "Starting station / destination station" inputs */}
       <label htmlFor="startingStation">Starting station: </label>
-      <input type="text" id="startingStation" defaultValue="București"></input>
+      <input type="text" id="startingStation" defaultValue="București" ref={startingStationRef}></input>
       <br></br>
 
       <label htmlFor="destinationStation">Destination: </label>
-      <input type="text" id="destinationStation" defaultValue="Satu Mare"></input>
+      <input type="text" id="destinationStation" defaultValue="Satu Mare" ref={destinationStationRef}></input>
       <br></br>
       <br></br>
 
 
     {/** "Arrives at platform / multiple stations at this platform" inputs */}
       <label htmlFor="arrivalPlatform">Arrives at platform: </label>
-      <input type="number" id="arrivalPlatform" defaultValue="1"></input>
+      <input type="number" id="arrivalPlatform" defaultValue="1" ref={platformNumberRef}></input>
       <br></br>
 
-      <input type="checkbox" id="multipleTrainsAtPlatform"/>
+      <input type="checkbox" id="multipleTrainsAtPlatform" onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}}/>
       <label htmlFor="multipleTrainsAtPlatform">Multiple trains at this platform</label>
       <br></br>
       <br></br>
@@ -135,13 +167,13 @@ export default function TrainAnnouncementPanel() {
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
       <input type="checkbox" id="fromDirection" onChange={() => setFromDirection(!fromDirection)}></input>
       <label htmlFor="fromDirection">From direction: </label>
-      <input type="text" id="fromDirection" defaultValue="Sinaia" disabled={!fromDirection}></input>
+      <input type="text" id="fromDirection" defaultValue="Sinaia" disabled={!fromDirection} ref={fromDirectionStations}></input>
       <br></br>
 
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
       <input type="checkbox" id="towardDirection" onChange={() => setContinuesToward(!continuesToward)}></input>
       <label htmlFor="towardDirection">Continues toward: </label>
-      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare" disabled={!continuesToward}></input>
+      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare" disabled={!continuesToward} ref={continuesTowardStations}></input>
       <br></br>
       <br></br>
 
@@ -158,7 +190,7 @@ export default function TrainAnnouncementPanel() {
       
       <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation}></input>
+      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation} ref={doesNotStopAtSelectedStationsRef}></input>
       <br></br>
       <br></br>
 
