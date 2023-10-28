@@ -2,68 +2,6 @@ import React, {useState, useEffect, useRef} from 'react'
 import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
 import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
 
-function makeAnnouncement(){ // TODO: this stub function.
-
-  // Todo: Make it console.log all the data from the announcement form.
-  console.log("(Stub) Playing announcement");
-
-  // Parse the data from the announcement form, in the right order, into an array into a string.
-  /** Announcement structure (preliminary):
-   * Stimați călători.
-    Trenul <Train type> <train no.> operat de CFR Călători.
-    Din direcția <starting station>, <list of stations>.
-    Soseste în stație la linia <linia>.
-    Și va pleca in direcția <list>, <destination station>.
-
-    Vă rugăm să fiți atenți la îmbarcarea în vagoane.
-    Vă dorim călătorie plăcută!
-   */
-
-  /** Special romanian characters to use:
-   *  Ăă Ââ Îî Șș Țț
-   */
-
-  /* START OF BUILD ANNOUNCEMENT STRING*/
-
-  // add train type
-  
-  // add train number
-
-  // add operator (fixed string)
-
-  // Add "from direction" (preamble + the starting station)
-
-    // if multiple "from direction" stations are provided, add those too
-
-  // Add "arrives at platform no. x" (preamble + platform no.)
-
-  // Add "continues toward direction"
-    // If multiple "toward" stations are provided, add those
-    // Add final station name
-
-  // if multiple trains at this platform, add that to the announcement.
-
-  // IF train skips some stations
-    // if train only stops at last station, add THAT to the announcement.
-    // else (if train skips SELECTED stations), add THOSE to the announcement.
-
-  // Add "please be careful when boarding the railcars" (fixed string)
-
-  // Add "we wish you a pleasant journey" (fixed string)
-
-  /* END OF BUILD ANNOUNCEMENT STRING*/
-
-
-
-  // Make API call to Text-to-Speech service.
-
-  // Choose intro song.
-
-  // Play intro, wait before playing announcement, play announcement
-  new Audio(CFR_TRANSYLVANIA).play();
-  
-}
-
 export default function TrainAnnouncementPanel() {
 
   const [stopsAtAllStations, setstopsAtAllStations] = useState(true);
@@ -81,6 +19,68 @@ export default function TrainAnnouncementPanel() {
     // debug. REMOVE THIS SOON!
     console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
   },[stopsAtAllStations]);
+
+  function makeAnnouncement(){ // TODO: this stub function.
+
+    // Todo: Make it console.log all the data from the announcement form.
+    console.log("(Stub) Playing announcement");
+  
+    // Parse the data from the announcement form, in the right order, into an array into a string.
+    /** Announcement structure (preliminary):
+     * Stimați călători.
+      Trenul <Train type> <train no.> operat de CFR Călători.
+      Din direcția <starting station>, <list of stations>.
+      Soseste în stație la linia <linia>.
+      Și va pleca in direcția <list>, <destination station>.
+  
+      Vă rugăm să fiți atenți la îmbarcarea în vagoane.
+      Vă dorim călătorie plăcută!
+     */
+  
+    /** Special romanian characters to use:
+     *  Ăă Ââ Îî Șș Țț
+     */
+  
+    /* START OF BUILD ANNOUNCEMENT STRING*/
+  
+    // add train type
+    
+    // add train number
+  
+    // add operator (fixed string)
+  
+    // Add "from direction" (preamble + the starting station)
+  
+      // if multiple "from direction" stations are provided, add those too
+  
+    // Add "arrives at platform no. x" (preamble + platform no.)
+  
+    // Add "continues toward direction"
+      // If multiple "toward" stations are provided, add those
+      // Add final station name
+  
+    // if multiple trains at this platform, add that to the announcement.
+  
+    // IF train skips some stations
+      // if train only stops at last station, add THAT to the announcement.
+      // else (if train skips SELECTED stations), add THOSE to the announcement.
+  
+    // Add "please be careful when boarding the railcars" (fixed string)
+  
+    // Add "we wish you a pleasant journey" (fixed string)
+  
+    /* END OF BUILD ANNOUNCEMENT STRING*/
+  
+  
+  
+    // Make API call to Text-to-Speech service.
+  
+    // Choose intro song.
+  
+    // Play intro, wait before playing announcement, play announcement
+    new Audio(CFR_TRANSYLVANIA).play();
+    
+  }
 
   return (
     <>
