@@ -4,7 +4,7 @@ import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
 
 export default function TrainAnnouncementPanel() {
 
-  const [stopsAtAllStations, setstopsAtAllStations] = useState(true);
+  const [stopsAtAllStations, setStopsAtAllStations] = useState(true);
   const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
   const [continuesToward, setContinuesToward] = useState(false);
   const [fromDirection, setFromDirection] = useState(false);
@@ -26,7 +26,7 @@ export default function TrainAnnouncementPanel() {
 
 
   function togglestopsAtAllStations(){
-    setstopsAtAllStations(!stopsAtAllStations);
+    setStopsAtAllStations(!stopsAtAllStations);
     // LOGGING / DEBUG. REMOVE THIS SOON!
     console.log("Toggled stopsAtAllStations");
   }
