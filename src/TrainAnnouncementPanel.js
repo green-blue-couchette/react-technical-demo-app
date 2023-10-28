@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
 import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
 
@@ -97,7 +97,8 @@ export default function TrainAnnouncementPanel() {
       <label htmlFor="trainNumber">Train: </label>
       <select style={{width: "75px"}} id="trainNumber" onChange={() => console.log("Train type was selected")}>
           <option value="IRN">IRN</option>
-          <option value="IC">IC</option>
+          <option value="IR">IR</option>
+          <option value="R">R</option>
       </select>
       <input type="number" id="trainNumber" defaultValue="1741"></input>
       <br></br>
