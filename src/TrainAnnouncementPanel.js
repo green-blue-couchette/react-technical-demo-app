@@ -58,35 +58,77 @@ export default function TrainAnnouncementPanel() {
      */
   
     /* START OF BUILD ANNOUNCEMENT STRING*/
-  
+    let announcementString = "Stimați călători, trenul ";
+
     // add train type
-    
+    if(trainTypeRef.current.value === "IRN")
+      announcementString += "InterRegio Noapte";
+    else if(trainTypeRef.current.value === "IR")
+      announcementString += "InterRegio";
+    else if(trainTypeRef.current.value === "R")
+      announcementString += "Regio";
+    else
+      announcementString += "necunoscut" // if chosen train type is not one of the valid ones, for some odd reason
+
+    announcementString += " ";
+
     // add train number
+    announcementString += trainNumberRef.current.value + ", ";
   
     // add operator (fixed string)
+    announcementString += "operat de CFR călători, ";
   
     // Add "from direction" (preamble + the starting station)
-  
+    announcementString += "din direcția "
       // if multiple "from direction" stations are provided, add those too
-  
+    announcementString += startingStationRef.current.value;
+    
+    if(fromDirection)
+      announcementString += ", " + fromDirectionStations.current.value;
+
+    announcementString += " ";
+
     // Add "arrives at platform no. x" (preamble + platform no.)
-  
+    announcementString += "sosește în stație la linia ";
+    announcementString += platformNumberRef.current.value + " ";
+
     // Add "continues toward direction"
+    announcementString += "și va pleca în direcția ";
       // If multiple "toward" stations are provided, add those
+      if(continuesToward)
+        announcementString += continuesTowardStations.current.value + ", ";
       // Add final station name
-  
-    // if multiple trains at this platform, add that to the announcement.
+      announcementString += destinationStationRef.current.value;
+
+    announcementString += ". ";
   
     // IF train skips some stations
-      // if train only stops at last station, add THAT to the announcement.
-      // else (if train skips SELECTED stations), add THOSE to the announcement.
+    if(!stopsAtAllStations)
+    {
+      if(onlyStopsAtFinalStation) // if train only stops at last station, add THAT to the announcement.
+      {
+        announcementString += "Atenție! Trenul nu se oprește până la stația ";
+        announcementString += destinationStationRef.current.value;
+      }
+      else // else (if train skips SELECTED stations), add THOSE to the announcement.
+      {
+        announcementString += "Atenție! Trenul nu se oprește la stațiile ";
+        announcementString += doesNotStopAtSelectedStationsRef.current.value;
+      }
+      announcementString += ". ";
+    }
+    
+    // if multiple trains at this platform, add that to the announcement.
+    if(multipleTrainsAtPlatform)
+    announcementString += "Atenție! Alte trenuri se află pe aceeași linie. Asigurați-vă că v-ați îmbarcat în trenul corect. "
+
+    // Add "please be careful when boarding the railcars" and "we wish you a pleasant journey" (fixed string)
+    announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
   
-    // Add "please be careful when boarding the railcars" (fixed string)
-  
-    // Add "we wish you a pleasant journey" (fixed string)
-  
+    console.log(announcementString);
     /* END OF BUILD ANNOUNCEMENT STRING*/
     // DEBUG, LOGGING
+    /*
     console.log("Intro type is: ", announcementIntroRef.current.value,
       ", Train type is", trainTypeRef.current.value,
       ", Train number is", trainNumberRef.current.value,
@@ -103,6 +145,7 @@ export default function TrainAnnouncementPanel() {
       "onlyStopsAtFinalStation is", onlyStopsAtFinalStation,
       ", does not stop at selected stations:", doesNotStopAtSelectedStationsRef.current.value
       );
+    */
   
   
     // Make API call to Text-to-Speech service.
