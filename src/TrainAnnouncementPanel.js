@@ -97,14 +97,14 @@ export default function TrainAnnouncementPanel() {
       <br></br>
 
     {/** Train code inputs */}
-      <label htmlFor="trainNumber">Train: </label>
-      <select style={{width: "75px"}} id="trainNumber" onChange={() => console.log("Train type was selected")}>
+      <label htmlFor="trainCode">Train: </label>
+      <select style={{width: "75px"}} id="trainCode" onChange={() => console.log("Train type was selected")}>
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>
       </select>
 
-      <input type="number" id="trainNumber" defaultValue="1741"></input>
+      <input type="number" id="trainCode" defaultValue="1741"></input>
       <br></br>
       <br></br>
 
