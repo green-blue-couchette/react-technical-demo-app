@@ -17,7 +17,40 @@ function makeAnnouncement(){ // TODO: this stub function.
 
     Va rugam sa fiti atenti la imbarcarea in vagoane.
     Va dorim calatorie placuta!
+    
    */
+
+  /* START OF BUILD ANNOUNCEMENT STRING*/
+
+  // add train type
+  
+  // add train number
+
+  // add operator (fixed string)
+
+  // Add "from direction" (preamble + the starting station)
+
+    // if multiple "from direction" stations are provided, add those too
+
+  // Add "arrives at platform no. x" (preamble + platform no.)
+
+  // Add "continues toward direction"
+    // If multiple "toward" stations are provided, add those
+    // Add final station name
+
+  // if multiple trains at this platform, add that to the announcement.
+
+  // IF train skips some stations
+    // if train only stops at last station, add THAT to the announcement.
+    // else (if train skips SELECTED stations), add THOSE to the announcement.
+
+  // Add "please be careful when boarding the railcars" (fixed string)
+
+  // Add "we wish you a pleasant journey" (fixed string)
+
+  /* END OF BUILD ANNOUNCEMENT STRING*/
+
+
 
   // Make API call to Text-to-Speech service.
 
