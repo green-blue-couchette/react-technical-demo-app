@@ -84,6 +84,8 @@ export default function TrainAnnouncementPanel() {
 
   return (
     <>
+
+    {/** "Play Announcement" button */}
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
       <input type="button" defaultValue="Play announcement" onClick={makeAnnouncement} style={{width:"100%"}}/>
 
@@ -94,16 +96,20 @@ export default function TrainAnnouncementPanel() {
       </select>
       <br></br>
 
+    {/** Train code inputs */}
       <label htmlFor="trainNumber">Train: </label>
       <select style={{width: "75px"}} id="trainNumber" onChange={() => console.log("Train type was selected")}>
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>
       </select>
+
       <input type="number" id="trainNumber" defaultValue="1741"></input>
       <br></br>
       <br></br>
 
+
+    {/** "Starting station / destination station" inputs */}
       <label htmlFor="startingStation">Starting station: </label>
       <input type="text" id="startingStation" defaultValue="București"></input>
       <br></br>
@@ -113,14 +119,19 @@ export default function TrainAnnouncementPanel() {
       <br></br>
       <br></br>
 
+
+    {/** "Arrives at platform / multiple stations at this platform" inputs */}
       <label htmlFor="arrivalPlatform">Arrives at platform: </label>
       <input type="number" id="arrivalPlatform" defaultValue="1"></input>
       <br></br>
+
       <input type="checkbox" id="multipleTrainsAtPlatform"/>
       <label htmlFor="multipleTrainsAtPlatform">Multiple trains at this platform</label>
       <br></br>
       <br></br>
 
+
+      {/** "From direction / continues toward direction" inputs */}
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
       <input type="checkbox" id="fromDirection" onChange={() => setFromDirection(!fromDirection)}></input>
       <label htmlFor="fromDirection">From direction: </label>
@@ -135,7 +146,7 @@ export default function TrainAnnouncementPanel() {
       <br></br>
 
 
-
+      {/** "Train skips some stations" inputs */}
       {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
       <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={togglestopsAtAllStations}/>
       <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
