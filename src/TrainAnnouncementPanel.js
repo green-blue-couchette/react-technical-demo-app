@@ -41,6 +41,15 @@ export default function TrainAnnouncementPanel() {
     // Todo: Make it console.log all the data from the announcement form.
     console.log("(Stub) Playing announcement");
   
+    // Choose intro song.
+    const announcementIntroName = announcementIntroRef.current.value;
+    let intro = new Audio();
+    
+    if(announcementIntroName === "Transylvania")
+      intro = new Audio(CFR_TRANSYLVANIA);
+    else if (announcementIntroName === "Bucharest")
+      intro = new Audio(CFR_BUCHAREST);
+
     // Parse the data from the announcement form, in the right order, into an array into a string.
     /** Announcement structure (preliminary):
      * Stimați călători.
@@ -149,15 +158,7 @@ export default function TrainAnnouncementPanel() {
   
   
     // Make API call to Text-to-Speech service.
-  
-    // Choose intro song.
-    const announcementIntroName = announcementIntroRef.current.value;
-    let intro = new Audio();
-    
-    if(announcementIntroName === "Transylvania")
-      intro = new Audio(CFR_TRANSYLVANIA);
-    else if (announcementIntroName === "Bucharest")
-      intro = new Audio(CFR_BUCHAREST);
+
 
     // Play intro, wait before playing announcement, play announcement
     intro.play();
