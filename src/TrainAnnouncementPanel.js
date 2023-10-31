@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
 import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
+import loading_spinner from "./assets/loading-spinner.gif";
+import speaker from "./assets/speaker.gif";
 
 import * as credentials from './credentials.js';
 
@@ -28,6 +30,14 @@ export default function TrainAnnouncementPanel() {
 
   let intro = new Audio();
   let announcement = new Audio();
+  
+  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
+  /**
+   * 3 states:
+   * 1) "nothing playing back"
+   * 2) "fetching announcement audio"
+   * 3) "playing back now"
+   */
 
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
@@ -43,10 +53,9 @@ export default function TrainAnnouncementPanel() {
     console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
   },[stopsAtAllStations]);
 
-  async function makeAnnouncement(){ // TODO: this stub function.
+  async function makeAnnouncement(){
 
-    // Todo: Make it console.log all the data from the announcement form.
-    console.log("(Stub) Playing announcement");
+    console.log("Playing announcement...");
   
     // Choose intro song.
     const announcementIntroName = announcementIntroRef.current.value;
@@ -141,8 +150,9 @@ export default function TrainAnnouncementPanel() {
     announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
   
     console.log("Announcement is:", announcementString); // logging
+    console.log("Fetching spoken announcement from TTS API..."); // logging
     /* END OF BUILD ANNOUNCEMENT STRING*/
-    
+
     // DEBUG, LOGGING
     /*
     console.log("Intro type is: ", announcementIntroRef.current.value,
@@ -165,6 +175,8 @@ export default function TrainAnnouncementPanel() {
   
   
     // Make API call to Text-to-Speech service.
+    setAnnouncementPlaybackState("fetching announcement audio");
+
     const requestData = {
       "token":  credentials.API_TOKEN,
       "email":  credentials.API_EMAIL,
@@ -188,12 +200,18 @@ export default function TrainAnnouncementPanel() {
 
 
     // Play intro song, then play announcement.
+    setAnnouncementPlaybackState("playing back now");
+
     intro.play();
 
     intro.onended = () => {
       announcement.play();
     };
 
+    announcement.onended = () => {
+      setAnnouncementPlaybackState("nothing playing back");
+    }
+    
   }
 
   return (
@@ -203,6 +221,17 @@ export default function TrainAnnouncementPanel() {
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
       <input type="button" defaultValue="Play announcement" onClick={makeAnnouncement} style={{width:"100%"}}/>
 
+    {/**  Div for loading and loudspeaker gifs .
+     *    Renders contents conditionally.
+     */}
+      <div style={{textAlign:"center", minHeight: "64px", maxHeight: "64px"}}>
+        {  "nothing playing back" === announcementPlaybackState && <div></div>
+        || "fetching announcement audio" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}}></img>
+        || "playing back now" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}}></img>
+        }
+      </div>
+      
+    {/** "Announcement intro" input */}
       <label htmlFor="announcementIntro">Announcement intro: </label>
       <select style={{width: "71%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
           <option value="Transylvania">Transylvania</option>
