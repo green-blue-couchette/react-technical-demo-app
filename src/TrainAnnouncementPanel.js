@@ -42,19 +42,8 @@ export default function TrainAnnouncementPanel() {
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
-  async function makeAnnouncement(){
-
-    console.log("Parsing announcement into a string..."); // logging
-  
-    // Choose intro song.
-    const announcementIntroName = announcementIntroRef.current.value;
-    
-    if(announcementIntroName === "Transylvania")
-      intro = new Audio(CFR_TRANSYLVANIA);
-    else if (announcementIntroName === "Bucharest")
-      intro = new Audio(CFR_BUCHAREST);
-
-    // Parse the data from the announcement form, in the right order, into an array into a string.
+  function parseAnnouncement(){
+    // Parse the data from the announcement form, in the right order, into a string.
     /** Announcement structure (preliminary):
      * Stimați călători.
       Trenul <Train type> <train no.> operat de CFR Călători.
@@ -137,10 +126,9 @@ export default function TrainAnnouncementPanel() {
 
     // Add "please be careful when boarding the railcars" and "we wish you a pleasant journey" (fixed string)
     announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
-  
-    console.log("Announcement is:", announcementString); // logging
-    console.log("Fetching spoken announcement from TTS API..."); // logging
     /* END OF BUILDING ANNOUNCEMENT STRING*/
+
+    return announcementString;
 
     // DEBUG, LOGGING
     /*
@@ -161,9 +149,27 @@ export default function TrainAnnouncementPanel() {
       ", does not stop at selected stations:", doesNotStopAtSelectedStationsRef.current.value
       );
     */
+
+  }
+
+  async function makeAnnouncement(){
+
+    console.log("Parsing announcement into a string..."); // logging
   
+    // Choose intro song.
+    const announcementIntroName = announcementIntroRef.current.value;
+    
+    if(announcementIntroName === "Transylvania")
+      intro = new Audio(CFR_TRANSYLVANIA);
+    else if (announcementIntroName === "Bucharest")
+      intro = new Audio(CFR_BUCHAREST);
+
+    // Parse announcement into a string
+    let announcementString = parseAnnouncement();
+    console.log("Announcement is:", announcementString); // logging
   
     // Make API call to Text-to-Speech service.
+    console.log("Fetching spoken announcement from TTS API..."); // logging
     setAnnouncementPlaybackState("fetching announcement audio");
 
     const requestData = {
@@ -200,7 +206,6 @@ export default function TrainAnnouncementPanel() {
     announcement.onended = () => {
       setAnnouncementPlaybackState("nothing playing back");
     }
-
   }
 
   return (
