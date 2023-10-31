@@ -152,24 +152,7 @@ export default function TrainAnnouncementPanel() {
 
   }
 
-  async function makeAnnouncement(){
-
-    console.log("Parsing announcement into a string..."); // logging
-  
-    // Choose intro song.
-    const announcementIntroName = announcementIntroRef.current.value;
-    
-    if(announcementIntroName === "Transylvania")
-      intro = new Audio(CFR_TRANSYLVANIA);
-    else if (announcementIntroName === "Bucharest")
-      intro = new Audio(CFR_BUCHAREST);
-
-    // Parse announcement into a string
-    let announcementString = parseAnnouncement();
-    console.log("Announcement is:", announcementString); // logging
-  
-    // Make API call to Text-to-Speech service.
-    console.log("Fetching spoken announcement from TTS API..."); // logging
+  async function fetchTTSAnnouncement(announcementString){
     setAnnouncementPlaybackState("fetching announcement audio");
 
     const requestData = {
@@ -189,10 +172,29 @@ export default function TrainAnnouncementPanel() {
     });
 
     const apiResponseData = await apiResponse.json();
-    console.log("MP3 FILE IS AT", apiResponseData.file); // logging
+    return apiResponseData.file;
+  }
 
-    announcement = new Audio(apiResponseData.file);
+  async function makeAnnouncement(){
+  
+    // Choose intro song.
+    const announcementIntroName = announcementIntroRef.current.value;
+    
+    if(announcementIntroName === "Transylvania")
+      intro = new Audio(CFR_TRANSYLVANIA);
+    else if (announcementIntroName === "Bucharest")
+      intro = new Audio(CFR_BUCHAREST);
 
+    // Parse announcement into a string
+    console.log("Parsing announcement into a string..."); // logging
+    let announcementString = parseAnnouncement();
+    console.log("Announcement is:", announcementString); // logging
+  
+    // Make API call to Text-to-Speech service.
+    console.log("Fetching spoken announcement from TTS API..."); // logging
+    const mp3FileLocation = await fetchTTSAnnouncement(announcementString);
+    console.log("MP3 FILE IS AT", mp3FileLocation); // logging
+    announcement = new Audio(mp3FileLocation);
 
     // Play intro song, then play announcement.
     setAnnouncementPlaybackState("playing back now");
