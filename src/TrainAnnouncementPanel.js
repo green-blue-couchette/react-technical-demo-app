@@ -211,7 +211,7 @@ export default function TrainAnnouncementPanel() {
     announcement.onended = () => {
       setAnnouncementPlaybackState("nothing playing back");
     }
-    
+
   }
 
   return (
@@ -224,7 +224,7 @@ export default function TrainAnnouncementPanel() {
     {/**  Div for loading and loudspeaker gifs .
      *    Renders contents conditionally.
      */}
-      <div style={{textAlign:"center", minHeight: "64px", maxHeight: "64px"}}>
+      <div style={{textAlign: "center", minHeight: "64px", maxHeight: "64px"}}>
         {  "nothing playing back" === announcementPlaybackState && <div></div>
         || "fetching announcement audio" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}}></img>
         || "playing back now" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}}></img>
@@ -233,7 +233,7 @@ export default function TrainAnnouncementPanel() {
       
     {/** "Announcement intro" input */}
       <label htmlFor="announcementIntro">Announcement intro: </label>
-      <select style={{width: "71%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
+      <select style={{width: "65%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
           <option value="Transylvania">Transylvania</option>
           <option value="Bucharest">Bucharest</option>
       </select>
