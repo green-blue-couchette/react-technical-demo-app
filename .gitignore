@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 todos-technical-demo-app.txt
+
+**/*credentials.js

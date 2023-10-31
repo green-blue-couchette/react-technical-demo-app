@@ -2,6 +2,9 @@ import React, {useState, useEffect, useRef} from 'react'
 import CFR_TRANSYLVANIA from "./assets/CFR_IANCU_REVERB.wav";
 import CFR_BUCHAREST from "./assets/CFR_GLASUL_ROTILOR.wav";
 
+import * as credentials from './credentials.js';
+
+
 export default function TrainAnnouncementPanel() {
 
   const [stopsAtAllStations, setStopsAtAllStations] = useState(true);
