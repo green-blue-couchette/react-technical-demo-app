@@ -42,20 +42,9 @@ export default function TrainAnnouncementPanel() {
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
-  function togglestopsAtAllStations(){
-    setStopsAtAllStations(!stopsAtAllStations);
-    // LOGGING / DEBUG. REMOVE THIS SOON!
-    console.log("Toggled stopsAtAllStations");
-  }
-
-  useEffect(()=>{
-    // debug. REMOVE THIS SOON!
-    console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
-  },[stopsAtAllStations]);
-
   async function makeAnnouncement(){
 
-    console.log("Playing announcement...");
+    console.log("Parsing announcement into a string..."); // logging
   
     // Choose intro song.
     const announcementIntroName = announcementIntroRef.current.value;
@@ -291,15 +280,17 @@ export default function TrainAnnouncementPanel() {
 
       {/** "Train skips some stations" inputs */}
       {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
-      <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={togglestopsAtAllStations}/>
+      <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={() => {
+        setStopsAtAllStations(!stopsAtAllStations);
+      }}/>
       <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
       <br></br>
       
-      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations} onChange={() => {setOnlyStopsAtFinalStation(true); console.log("only stops at FINAL STATION");}} defaultChecked={onlyStopsAtFinalStation} ></input>
+      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations} onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}} defaultChecked={onlyStopsAtFinalStation} ></input>
       <label htmlFor="onlyFinalStation">Only stops at final station</label>
       <br></br>
       
-      <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
+      <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
       <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation} ref={doesNotStopAtSelectedStationsRef}></input>
       <br></br>
