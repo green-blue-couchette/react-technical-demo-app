@@ -5,11 +5,11 @@ import './Pg2Trains.css';
 export default function Pg2Trains() {
 
   const defaultTrainsPageImages = {
-    trainImage: "https://www.railpictures.net/images/d1/1/5/3/6153.1375617413.jpg",
+    trainImage: "", // "https://www.railpictures.net/images/d1/1/5/3/6153.1375617413.jpg",
     credits: {
-      owner: "Titel Costica",
-      sourcePage: "https://www.railpictures.net/photo/445941/",
-      displayedURL: "RailPictures.Net"
+      owner: "", // "Titel Costica",
+      sourcePage: "", // "https://www.railpictures.net/photo/445941/",
+      displayedURL: "" // "RailPictures.Net"
     },
     railwayOperatorImage: "https://upload.wikimedia.org/wikipedia/en/e/ee/CFR_Calatori.png"
   }

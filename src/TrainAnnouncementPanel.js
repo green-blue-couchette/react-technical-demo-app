@@ -210,6 +210,10 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     }
   }
 
+  useEffect(() => {
+    handleSelectTrainType();
+  },[]);
+
   function handleSelectTrainType(){
     // trainTypeRef.current.value
     let trainImageURL = "";
