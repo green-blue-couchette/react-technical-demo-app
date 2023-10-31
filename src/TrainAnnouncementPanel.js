@@ -7,7 +7,7 @@ import speaker from "./assets/speaker.gif";
 import * as credentials from './credentials.js';
 
 
-export default function TrainAnnouncementPanel() {
+export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   const [stopsAtAllStations, setStopsAtAllStations] = useState(true);
   const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
@@ -210,9 +210,49 @@ export default function TrainAnnouncementPanel() {
     }
   }
 
+  function handleSelectTrainType(){
+    // trainTypeRef.current.value
+    let trainImageURL = "";
+    let owner = "";
+    let sourcePage = "";
+    let displayedURL = "";
+    
+    if(trainTypeRef.current.value === "IRN"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/dormit/61%2053%2070-91%20009-8-BucN-003.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_70-91.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "IR"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/26-16/50%2053%2026-16%20004-9-24.05.2008.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_26-16.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "R"){
+      trainImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/17-buc_%281%29.jpg/640px-17-buc_%281%29.jpg";
+      owner = "Stefan Bichler";
+      sourcePage = "https://commons.wikimedia.org/wiki/File:17-buc_(1).jpg";
+      displayedURL = "commons.wikimedia.org";
+    }
+
+    setImagesState({
+      ...imagesState,
+      trainImage : trainImageURL,
+      credits:{
+        ...imagesState.credits,
+        owner : owner,
+        sourcePage : sourcePage,
+        displayedURL : displayedURL
+      }
+    });
+  }
+  
   return (
     <>
-
+    
     {/** "Play Announcement" button */}
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
       <input
@@ -248,7 +288,7 @@ export default function TrainAnnouncementPanel() {
       <select
         style={{width: "75px"}}
         id="trainCode" ref={trainTypeRef}
-        onChange={() => console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value)} >
+        onChange={() => {handleSelectTrainType(); console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value);}} >
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>

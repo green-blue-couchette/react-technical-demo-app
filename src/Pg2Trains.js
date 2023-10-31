@@ -16,26 +16,9 @@ export default function Pg2Trains() {
   
   const [trainsPageImages, setTrainsPageImages] = useState(defaultTrainsPageImages);
 
-  function handleOnClick(){
-      
-    setTrainsPageImages({
-      ...trainsPageImages, // copy the old fields
-      trainImage: "https://cdn.knd.ro/media/521/2942/1666/20172475/1/cat-costa-sa-mergi-intr-un-vagon-de-dormit-al-cfr-si-ce-conditii-ai.jpg", // But override this one
-      credits: {
-        ...trainsPageImages.credits, // copy the old fields
-        owner: "Radioimpuls.ro", // but actually override all of them, hahahaha
-        sourcePage: "https://www.radioimpuls.ro/cat-costa-sa-mergi-intr-un-vagon-de-dormit-al-cfr-si-ce-conditii-ai-20172475",
-        displayedURL: "radioimpuls.ro"
-      }
-    }) 
-  
-  }
-
   return (
     <>
       <h1>Trains page</h1>
-
-      <button onClick={()=>{handleOnClick(); console.log("clicked")}}>Change images!</button>
 
       {/** Picture of selected train type */}
       <div id="trainsPageContent">
@@ -50,12 +33,12 @@ export default function Pg2Trains() {
       </div>
         
       <div id="trainsPageContent">
-        <TrainAnnouncementPanel/>
+        <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
       </div>
 
       {/** Picture of selected railway operator */}
       <div id="trainsPageContent">
-        <img src={trainsPageImages.railwayOperatorImage}></img>
+        <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
       </div>
     </>
   )
