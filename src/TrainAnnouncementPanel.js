@@ -15,6 +15,14 @@ export default function TrainAnnouncementPanel() {
   const [fromDirection, setFromDirection] = useState(false);
   const [multipleTrainsAtPlatform, setMultipleTrainsAtPlatform] = useState(false);
 
+  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
+  /**
+   * 3 states:
+   * 1) "nothing playing back"
+   * 2) "fetching announcement audio"
+   * 3) "playing back now"
+   */
+
   const announcementIntroRef = useRef();
   const trainTypeRef = useRef();
   const trainNumberRef = useRef();
@@ -30,14 +38,6 @@ export default function TrainAnnouncementPanel() {
 
   let intro = new Audio();
   let announcement = new Audio();
-  
-  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
-  /**
-   * 3 states:
-   * 1) "nothing playing back"
-   * 2) "fetching announcement audio"
-   * 3) "playing back now"
-   */
 
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
