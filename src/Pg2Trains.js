@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import TrainAnnouncementPanel from "./TrainAnnouncementPanel";
+import LargeImage from './LargeImage';
 import './Pg2Trains.css';
 
 export default function Pg2Trains() {
@@ -22,7 +23,10 @@ export default function Pg2Trains() {
 
       {/** Picture of selected train type */}
       <div class="bigTrainsPageContent">
-        <img src={trainsPageImages.trainImage} alt="Romanian train" width = "500"></img>
+        <LargeImage
+          imageSrc={trainsPageImages.trainImage} 
+          width="500px"
+          alt="Romanian train" />
         <br></br>
         <label>
           Picture owner: {trainsPageImages.credits.owner},
