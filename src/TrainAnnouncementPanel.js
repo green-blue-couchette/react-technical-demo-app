@@ -29,6 +29,8 @@ export default function TrainAnnouncementPanel() {
   let intro = new Audio();
   let announcement = new Audio();
 
+  const proxyURL = "https://corsproxy.io/?";
+  const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
   function togglestopsAtAllStations(){
     setStopsAtAllStations(!stopsAtAllStations);
@@ -41,7 +43,7 @@ export default function TrainAnnouncementPanel() {
     console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
   },[stopsAtAllStations]);
 
-  function makeAnnouncement(){ // TODO: this stub function.
+  async function makeAnnouncement(){ // TODO: this stub function.
 
     // Todo: Make it console.log all the data from the announcement form.
     console.log("(Stub) Playing announcement");
@@ -138,8 +140,9 @@ export default function TrainAnnouncementPanel() {
     // Add "please be careful when boarding the railcars" and "we wish you a pleasant journey" (fixed string)
     announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
   
-    console.log(announcementString);
+    console.log("Announcement is:", announcementString); // logging
     /* END OF BUILD ANNOUNCEMENT STRING*/
+    
     // DEBUG, LOGGING
     /*
     console.log("Intro type is: ", announcementIntroRef.current.value,
@@ -162,11 +165,34 @@ export default function TrainAnnouncementPanel() {
   
   
     // Make API call to Text-to-Speech service.
+    const requestData = {
+      "token":  credentials.API_TOKEN,
+      "email":  credentials.API_EMAIL,
+      "voice":  "Emil",
+      "text":   announcementString,
+      "format": "mp3"
+    };
+
+    const apiResponse = await fetch(proxyURL + speechGeneratorAddress, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    const apiRestponseData = await apiResponse.json();
+    console.log("MP3 FILE IS AT", apiRestponseData.file); // logging
+
+    announcement = new Audio(apiRestponseData.file);
 
 
-    // Play intro, wait before playing announcement, play announcement
+    // Play intro song, then play announcement.
     intro.play();
-    // Announcement is played by the event listener which triggers when the Audio object "intro" finishes playing.
+
+    intro.onended = () => {
+      announcement.play();
+    };
 
   }
 
