@@ -188,10 +188,10 @@ export default function TrainAnnouncementPanel() {
       body: JSON.stringify(requestData)
     });
 
-    const apiRestponseData = await apiResponse.json();
-    console.log("MP3 FILE IS AT", apiRestponseData.file); // logging
+    const apiResponseData = await apiResponse.json();
+    console.log("MP3 FILE IS AT", apiResponseData.file); // logging
 
-    announcement = new Audio(apiRestponseData.file);
+    announcement = new Audio(apiResponseData.file);
 
 
     // Play intro song, then play announcement.
