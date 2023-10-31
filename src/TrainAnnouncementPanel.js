@@ -70,7 +70,7 @@ export default function TrainAnnouncementPanel() {
      *  Ăă Ââ Îî Șș Țț
      */
   
-    /* START OF BUILD ANNOUNCEMENT STRING*/
+    /* START OF BUILDING ANNOUNCEMENT STRING*/
     let announcementString = "Stimați călători, trenul ";
 
     // add train type
@@ -140,7 +140,7 @@ export default function TrainAnnouncementPanel() {
   
     console.log("Announcement is:", announcementString); // logging
     console.log("Fetching spoken announcement from TTS API..."); // logging
-    /* END OF BUILD ANNOUNCEMENT STRING*/
+    /* END OF BUILDING ANNOUNCEMENT STRING*/
 
     // DEBUG, LOGGING
     /*
@@ -208,7 +208,11 @@ export default function TrainAnnouncementPanel() {
 
     {/** "Play Announcement" button */}
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
-      <input type="button" defaultValue="Play announcement" onClick={makeAnnouncement} style={{width:"100%"}}/>
+      <input
+        style={{width:"100%"}}
+        type="button"
+        defaultValue="Play announcement"
+        onClick={makeAnnouncement} />
 
     {/**  Div for loading and loudspeaker gifs .
      *    Renders contents conditionally.
@@ -222,7 +226,11 @@ export default function TrainAnnouncementPanel() {
       
     {/** "Announcement intro" input */}
       <label htmlFor="announcementIntro">Announcement intro: </label>
-      <select style={{width: "65%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
+      <select
+        style={{width: "65%"}}
+        id="announcementIntro"
+        ref={announcementIntroRef}
+        onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)} >
           <option value="Transylvania">Transylvania</option>
           <option value="Bucharest">Bucharest</option>
       </select>
@@ -230,34 +238,56 @@ export default function TrainAnnouncementPanel() {
 
     {/** Train code inputs */}
       <label htmlFor="trainCode">Train: </label>
-      <select style={{width: "75px"}} id="trainCode" ref={trainTypeRef} onChange={() => console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value)}>
+      <select
+        style={{width: "75px"}}
+        id="trainCode" ref={trainTypeRef}
+        onChange={() => console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value)} >
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>
       </select>
 
-      <input type="number" id="trainCode" defaultValue="1741" ref={trainNumberRef}></input>
+      <input
+        type="number"
+        id="trainCode"
+        defaultValue="1741"
+        ref={trainNumberRef} />
       <br></br>
       <br></br>
 
 
     {/** "Starting station / destination station" inputs */}
       <label htmlFor="startingStation">Starting station: </label>
-      <input type="text" id="startingStation" defaultValue="București" ref={startingStationRef}></input>
+      <input
+        type="text"
+        id="startingStation"
+        defaultValue="București"
+        ref={startingStationRef} />
       <br></br>
 
       <label htmlFor="destinationStation">Destination: </label>
-      <input type="text" id="destinationStation" defaultValue="Satu Mare" ref={destinationStationRef}></input>
+      <input
+        type="text"
+        id="destinationStation"
+        defaultValue="Satu Mare"
+        ref={destinationStationRef} />
       <br></br>
       <br></br>
 
 
     {/** "Arrives at platform / multiple stations at this platform" inputs */}
       <label htmlFor="arrivalPlatform">Arrives at platform: </label>
-      <input type="number" id="arrivalPlatform" defaultValue="1" ref={platformNumberRef}></input>
+      <input
+        type="number"
+        id="arrivalPlatform"
+        defaultValue="1"
+        ref={platformNumberRef} />
       <br></br>
 
-      <input type="checkbox" id="multipleTrainsAtPlatform" onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}}/>
+      <input
+        type="checkbox"
+        id="multipleTrainsAtPlatform"
+        onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}} />
       <label htmlFor="multipleTrainsAtPlatform">Multiple trains at this platform</label>
       <br></br>
       <br></br>
@@ -265,34 +295,69 @@ export default function TrainAnnouncementPanel() {
 
       {/** "From direction / continues toward direction" inputs */}
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input type="checkbox" id="fromDirection" onChange={() => setFromDirection(!fromDirection)}></input>
+      <input
+        type="checkbox"
+        id="fromDirection"
+        onChange={() => setFromDirection(!fromDirection)} />
       <label htmlFor="fromDirection">From direction: </label>
-      <input type="text" id="fromDirection" defaultValue="Sinaia" disabled={!fromDirection} ref={fromDirectionStations}></input>
+      <input
+        type="text"
+        id="fromDirection"
+        defaultValue="Sinaia"
+        disabled={!fromDirection}
+        ref={fromDirectionStations} />
       <br></br>
 
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input type="checkbox" id="towardDirection" onChange={() => setContinuesToward(!continuesToward)}></input>
+      <input
+        type="checkbox"
+        id="towardDirection"
+        onChange={() => setContinuesToward(!continuesToward)} />
       <label htmlFor="towardDirection">Continues toward: </label>
-      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare" disabled={!continuesToward} ref={continuesTowardStations}></input>
+      <input
+        type="text"
+        id="towardDirection"
+        defaultValue="Târgu Mureș, Baia Mare"
+        disabled={!continuesToward}
+        ref={continuesTowardStations} />
       <br></br>
       <br></br>
 
 
       {/** "Train skips some stations" inputs */}
       {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
-      <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={() => {
-        setStopsAtAllStations(!stopsAtAllStations);
-      }}/>
+      <input
+        type="checkbox"
+        id="stopsAtAllStations"
+        defaultChecked={!stopsAtAllStations}
+        onChange={() => {setStopsAtAllStations(!stopsAtAllStations);}} />
       <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
       <br></br>
       
-      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations} onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}} defaultChecked={onlyStopsAtFinalStation} ></input>
+      <input
+        type="radio"
+        id="onlyFinalStation"
+        name="noStops"
+        disabled={stopsAtAllStations}
+        onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}}
+        defaultChecked={onlyStopsAtFinalStation} />
       <label htmlFor="onlyFinalStation">Only stops at final station</label>
       <br></br>
       
-      <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
+      <input
+        type="radio"
+        id="noStopStations"
+        name="noStops"
+        onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}}
+        disabled={stopsAtAllStations} />
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation} ref={doesNotStopAtSelectedStationsRef}></input>
+      <input
+        type="text"
+        id="noStopStations"
+        name="noStops"
+        defaultValue="Ciceu"
+        disabled={stopsAtAllStations || onlyStopsAtFinalStation}
+        ref={doesNotStopAtSelectedStationsRef} />
       <br></br>
       <br></br>
 
