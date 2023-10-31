@@ -23,6 +23,8 @@ export default function TrainAnnouncementPanel() {
 
   const doesNotStopAtSelectedStationsRef = useRef();
 
+  let intro = new Audio();
+  let announcement = new Audio();
 
 
   function togglestopsAtAllStations(){
@@ -43,7 +45,6 @@ export default function TrainAnnouncementPanel() {
   
     // Choose intro song.
     const announcementIntroName = announcementIntroRef.current.value;
-    let intro = new Audio();
     
     if(announcementIntroName === "Transylvania")
       intro = new Audio(CFR_TRANSYLVANIA);
@@ -162,7 +163,8 @@ export default function TrainAnnouncementPanel() {
 
     // Play intro, wait before playing announcement, play announcement
     intro.play();
-    
+    // Announcement is played by the event listener which triggers when the Audio object "intro" finishes playing.
+
   }
 
   return (
