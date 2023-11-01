@@ -21,6 +21,12 @@ export default function Pg2Trains() {
     <>
       <h1>Trains page</h1>
 
+      <h5>
+        Note: This site is not affiliated with, nor endorsed by, any of the railway operators mentioned.
+        <br/>
+        All trademarks, images, and other such materials belong to their respective owners. I claim no ownership of them.
+      </h5>
+      
       {/** Picture of selected train type */}
       <div class="bigTrainsPageContent">
         <LargeImage
