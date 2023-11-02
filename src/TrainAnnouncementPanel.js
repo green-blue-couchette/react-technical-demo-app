@@ -270,8 +270,8 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
      */}
       <div style={{textAlign: "center", minHeight: "64px", maxHeight: "64px"}}>
         {  "nothing playing back" === announcementPlaybackState && <div></div>
-        || "fetching announcement audio" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}}></img>
-        || "playing back now" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}}></img>
+        || "fetching announcement audio" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}} alt="animated loading icon"></img>
+        || "playing back now" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}} alt="animated playback icon"></img>
         }
       </div>
       
