@@ -1,4 +1,11 @@
-#trainsPageContent{
+div.bigTrainsPageContent{
    float: left;
    padding: 5px;
+   min-width: 500px;
+   min-height: 415px;
+   
+}
+div.smallTrainsPageContent{
+   float:left;
+   min-width: 200px;
 }

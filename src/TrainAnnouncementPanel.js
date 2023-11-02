@@ -7,13 +7,21 @@ import speaker from "./assets/speaker.gif";
 import * as credentials from './credentials.js';
 
 
-export default function TrainAnnouncementPanel() {
+export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   const [stopsAtAllStations, setStopsAtAllStations] = useState(true);
   const [onlyStopsAtFinalStation, setOnlyStopsAtFinalStation] = useState(true);
   const [continuesToward, setContinuesToward] = useState(false);
   const [fromDirection, setFromDirection] = useState(false);
   const [multipleTrainsAtPlatform, setMultipleTrainsAtPlatform] = useState(false);
+
+  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
+  /**
+   * 3 states:
+   * 1) "nothing playing back"
+   * 2) "fetching announcement audio"
+   * 3) "playing back now"
+   */
 
   const announcementIntroRef = useRef();
   const trainTypeRef = useRef();
@@ -30,42 +38,12 @@ export default function TrainAnnouncementPanel() {
 
   let intro = new Audio();
   let announcement = new Audio();
-  
-  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
-  /**
-   * 3 states:
-   * 1) "nothing playing back"
-   * 2) "fetching announcement audio"
-   * 3) "playing back now"
-   */
 
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
-  function togglestopsAtAllStations(){
-    setStopsAtAllStations(!stopsAtAllStations);
-    // LOGGING / DEBUG. REMOVE THIS SOON!
-    console.log("Toggled stopsAtAllStations");
-  }
-
-  useEffect(()=>{
-    // debug. REMOVE THIS SOON!
-    console.log("stopsAtAllStations (actual value) is", stopsAtAllStations);
-  },[stopsAtAllStations]);
-
-  async function makeAnnouncement(){
-
-    console.log("Playing announcement...");
-  
-    // Choose intro song.
-    const announcementIntroName = announcementIntroRef.current.value;
-    
-    if(announcementIntroName === "Transylvania")
-      intro = new Audio(CFR_TRANSYLVANIA);
-    else if (announcementIntroName === "Bucharest")
-      intro = new Audio(CFR_BUCHAREST);
-
-    // Parse the data from the announcement form, in the right order, into an array into a string.
+  function parseAnnouncement(){
+    // Parse the data from the announcement form, in the right order, into a string.
     /** Announcement structure (preliminary):
      * Stimați călători.
       Trenul <Train type> <train no.> operat de CFR Călători.
@@ -81,7 +59,7 @@ export default function TrainAnnouncementPanel() {
      *  Ăă Ââ Îî Șș Țț
      */
   
-    /* START OF BUILD ANNOUNCEMENT STRING*/
+    /* START OF BUILDING ANNOUNCEMENT STRING*/
     let announcementString = "Stimați călători, trenul ";
 
     // add train type
@@ -148,10 +126,9 @@ export default function TrainAnnouncementPanel() {
 
     // Add "please be careful when boarding the railcars" and "we wish you a pleasant journey" (fixed string)
     announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
-  
-    console.log("Announcement is:", announcementString); // logging
-    console.log("Fetching spoken announcement from TTS API..."); // logging
-    /* END OF BUILD ANNOUNCEMENT STRING*/
+    /* END OF BUILDING ANNOUNCEMENT STRING*/
+
+    return announcementString;
 
     // DEBUG, LOGGING
     /*
@@ -172,9 +149,10 @@ export default function TrainAnnouncementPanel() {
       ", does not stop at selected stations:", doesNotStopAtSelectedStationsRef.current.value
       );
     */
-  
-  
-    // Make API call to Text-to-Speech service.
+
+  }
+
+  async function fetchTTSAnnouncement(announcementString){
     setAnnouncementPlaybackState("fetching announcement audio");
 
     const requestData = {
@@ -193,11 +171,30 @@ export default function TrainAnnouncementPanel() {
       body: JSON.stringify(requestData)
     });
 
-    const apiRestponseData = await apiResponse.json();
-    console.log("MP3 FILE IS AT", apiRestponseData.file); // logging
+    const apiResponseData = await apiResponse.json();
+    return apiResponseData.file;
+  }
 
-    announcement = new Audio(apiRestponseData.file);
+  async function makeAnnouncement(){
+  
+    // Choose intro song.
+    const announcementIntroName = announcementIntroRef.current.value;
+    
+    if(announcementIntroName === "Transylvania")
+      intro = new Audio(CFR_TRANSYLVANIA);
+    else if (announcementIntroName === "Bucharest")
+      intro = new Audio(CFR_BUCHAREST);
 
+    // Parse announcement into a string
+    console.log("Parsing announcement into a string..."); // logging
+    let announcementString = parseAnnouncement();
+    console.log("Announcement is:", announcementString); // logging
+  
+    // Make API call to Text-to-Speech service.
+    console.log("Fetching spoken announcement from TTS API..."); // logging
+    const mp3FileLocation = await fetchTTSAnnouncement(announcementString);
+    console.log("MP3 FILE IS AT", mp3FileLocation); // logging
+    announcement = new Audio(mp3FileLocation);
 
     // Play intro song, then play announcement.
     setAnnouncementPlaybackState("playing back now");
@@ -211,15 +208,62 @@ export default function TrainAnnouncementPanel() {
     announcement.onended = () => {
       setAnnouncementPlaybackState("nothing playing back");
     }
-
   }
 
+  useEffect(() => {
+    handleSelectTrainType();
+  },[]);
+
+  function handleSelectTrainType(){
+    // trainTypeRef.current.value
+    let trainImageURL = "";
+    let owner = "";
+    let sourcePage = "";
+    let displayedURL = "";
+    
+    if(trainTypeRef.current.value === "IRN"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/dormit/61%2053%2070-91%20009-8-BucN-003.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_70-91.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "IR"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/26-16/50%2053%2026-16%20004-9-24.05.2008.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_26-16.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "R"){
+      trainImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/17-buc_%281%29.jpg/640px-17-buc_%281%29.jpg";
+      owner = "Stefan Bichler";
+      sourcePage = "https://commons.wikimedia.org/wiki/File:17-buc_(1).jpg";
+      displayedURL = "commons.wikimedia.org";
+    }
+
+    setImagesState({
+      ...imagesState,
+      trainImage : trainImageURL,
+      credits:{
+        ...imagesState.credits,
+        owner : owner,
+        sourcePage : sourcePage,
+        displayedURL : displayedURL
+      }
+    });
+  }
+  
   return (
     <>
-
+    
     {/** "Play Announcement" button */}
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
-      <input type="button" defaultValue="Play announcement" onClick={makeAnnouncement} style={{width:"100%"}}/>
+      <input
+        style={{width:"100%"}}
+        type="button"
+        defaultValue="Play announcement"
+        onClick={makeAnnouncement} />
 
     {/**  Div for loading and loudspeaker gifs .
      *    Renders contents conditionally.
@@ -233,7 +277,11 @@ export default function TrainAnnouncementPanel() {
       
     {/** "Announcement intro" input */}
       <label htmlFor="announcementIntro">Announcement intro: </label>
-      <select style={{width: "65%"}} id="announcementIntro" ref={announcementIntroRef} onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)}>
+      <select
+        style={{width: "65%"}}
+        id="announcementIntro"
+        ref={announcementIntroRef}
+        onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)} >
           <option value="Transylvania">Transylvania</option>
           <option value="Bucharest">Bucharest</option>
       </select>
@@ -241,34 +289,56 @@ export default function TrainAnnouncementPanel() {
 
     {/** Train code inputs */}
       <label htmlFor="trainCode">Train: </label>
-      <select style={{width: "75px"}} id="trainCode" ref={trainTypeRef} onChange={() => console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value)}>
+      <select
+        style={{width: "75px"}}
+        id="trainCode" ref={trainTypeRef}
+        onChange={() => {handleSelectTrainType(); console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value);}} >
           <option value="IRN">IRN</option>
           <option value="IR">IR</option>
           <option value="R">R</option>
       </select>
 
-      <input type="number" id="trainCode" defaultValue="1741" ref={trainNumberRef}></input>
+      <input
+        type="number"
+        id="trainCode"
+        defaultValue="1741"
+        ref={trainNumberRef} />
       <br></br>
       <br></br>
 
 
     {/** "Starting station / destination station" inputs */}
       <label htmlFor="startingStation">Starting station: </label>
-      <input type="text" id="startingStation" defaultValue="București" ref={startingStationRef}></input>
+      <input
+        type="text"
+        id="startingStation"
+        defaultValue="București"
+        ref={startingStationRef} />
       <br></br>
 
       <label htmlFor="destinationStation">Destination: </label>
-      <input type="text" id="destinationStation" defaultValue="Satu Mare" ref={destinationStationRef}></input>
+      <input
+        type="text"
+        id="destinationStation"
+        defaultValue="Satu Mare"
+        ref={destinationStationRef} />
       <br></br>
       <br></br>
 
 
     {/** "Arrives at platform / multiple stations at this platform" inputs */}
       <label htmlFor="arrivalPlatform">Arrives at platform: </label>
-      <input type="number" id="arrivalPlatform" defaultValue="1" ref={platformNumberRef}></input>
+      <input
+        type="number"
+        id="arrivalPlatform"
+        defaultValue="1"
+        ref={platformNumberRef} />
       <br></br>
 
-      <input type="checkbox" id="multipleTrainsAtPlatform" onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}}/>
+      <input
+        type="checkbox"
+        id="multipleTrainsAtPlatform"
+        onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}} />
       <label htmlFor="multipleTrainsAtPlatform">Multiple trains at this platform</label>
       <br></br>
       <br></br>
@@ -276,32 +346,69 @@ export default function TrainAnnouncementPanel() {
 
       {/** "From direction / continues toward direction" inputs */}
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input type="checkbox" id="fromDirection" onChange={() => setFromDirection(!fromDirection)}></input>
+      <input
+        type="checkbox"
+        id="fromDirection"
+        onChange={() => setFromDirection(!fromDirection)} />
       <label htmlFor="fromDirection">From direction: </label>
-      <input type="text" id="fromDirection" defaultValue="Sinaia" disabled={!fromDirection} ref={fromDirectionStations}></input>
+      <input
+        type="text"
+        id="fromDirection"
+        defaultValue="Sinaia"
+        disabled={!fromDirection}
+        ref={fromDirectionStations} />
       <br></br>
 
       {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input type="checkbox" id="towardDirection" onChange={() => setContinuesToward(!continuesToward)}></input>
+      <input
+        type="checkbox"
+        id="towardDirection"
+        onChange={() => setContinuesToward(!continuesToward)} />
       <label htmlFor="towardDirection">Continues toward: </label>
-      <input type="text" id="towardDirection" defaultValue="Târgu Mureș, Baia Mare" disabled={!continuesToward} ref={continuesTowardStations}></input>
+      <input
+        type="text"
+        id="towardDirection"
+        defaultValue="Târgu Mureș, Baia Mare"
+        disabled={!continuesToward}
+        ref={continuesTowardStations} />
       <br></br>
       <br></br>
 
 
       {/** "Train skips some stations" inputs */}
       {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
-      <input type="checkbox" id="stopsAtAllStations" defaultChecked={!stopsAtAllStations} onChange={togglestopsAtAllStations}/>
+      <input
+        type="checkbox"
+        id="stopsAtAllStations"
+        defaultChecked={!stopsAtAllStations}
+        onChange={() => {setStopsAtAllStations(!stopsAtAllStations);}} />
       <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
       <br></br>
       
-      <input type="radio" id="onlyFinalStation" name="noStops" disabled={stopsAtAllStations} onChange={() => {setOnlyStopsAtFinalStation(true); console.log("only stops at FINAL STATION");}} defaultChecked={onlyStopsAtFinalStation} ></input>
+      <input
+        type="radio"
+        id="onlyFinalStation"
+        name="noStops"
+        disabled={stopsAtAllStations}
+        onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}}
+        defaultChecked={onlyStopsAtFinalStation} />
       <label htmlFor="onlyFinalStation">Only stops at final station</label>
       <br></br>
       
-      <input type="radio" id="noStopStations" name="noStops" onChange={() => {setOnlyStopsAtFinalStation(false); console.log("skips SPECIFIC STATIONS");}} disabled={stopsAtAllStations}></input>
+      <input
+        type="radio"
+        id="noStopStations"
+        name="noStops"
+        onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}}
+        disabled={stopsAtAllStations} />
       <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input type="text" id="noStopStations" name="noStops" defaultValue="Ciceu" disabled={stopsAtAllStations || onlyStopsAtFinalStation} ref={doesNotStopAtSelectedStationsRef}></input>
+      <input
+        type="text"
+        id="noStopStations"
+        name="noStops"
+        defaultValue="Ciceu"
+        disabled={stopsAtAllStations || onlyStopsAtFinalStation}
+        ref={doesNotStopAtSelectedStationsRef} />
       <br></br>
       <br></br>
 
