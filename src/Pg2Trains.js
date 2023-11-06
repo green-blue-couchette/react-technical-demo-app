@@ -28,7 +28,7 @@ export default function Pg2Trains() {
       </h5>
       
       {/** Picture of selected train type */}
-      <div class="bigTrainsPageContent">
+      <div className="bigTrainsPageContent">
         <LargeImage
           imageSrc={trainsPageImages.trainImage} 
           width="500px"
@@ -42,12 +42,12 @@ export default function Pg2Trains() {
         </label>
       </div>
         
-      <div class="bigTrainsPageContent">
+      <div className="bigTrainsPageContent">
         <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
       </div>
 
       {/** Picture of selected railway operator */}
-      <div class="smallTrainsPageContent">
+      <div className="smallTrainsPageContent">
         <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
       </div>
     </>
