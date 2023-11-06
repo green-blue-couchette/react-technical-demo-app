@@ -57,7 +57,7 @@ function App() {
     else if(pageNumber == 3) // workouts page
       setPageContent(<Pg3Workouts/>)
     else  // default case, unexistent page
-      setPageContent(<p>Page doesn't exist. Choose between 1-3.</p>)
+      setPageContent(<p>Pages are closed. Choose from the drop-down menu above.</p>)
   }, [pageNumber])
 
 
