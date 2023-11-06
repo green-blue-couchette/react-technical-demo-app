@@ -5,7 +5,7 @@ import Pg3Workouts from './Pg3Workouts';
 
 function App() {
   
-  const [pageNumber, setPageNumber] = useState([1]);
+  const [pageNumber, setPageNumber] = useState([]);
   const pageNumberRef = useRef();
 
   const [pageContent, setPageContent] = useState([]);
@@ -15,10 +15,20 @@ function App() {
   // load pageNumber state from local storage, when page starts up
   useEffect( () => {
     const storedPageNumber = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+
+    // if localstorage has no saved value (null) or the closed page state (0), then default to page 0.
+    if(!storedPageNumber){
+      // logging
+      console.log("No stored page was found (got value", storedPageNumber, "from localStorage.) Defaulting to the closed page.");
+
+      setPageNumber(0);
+      return;
+    }
+
     setPageNumber(storedPageNumber);
 
     //logging
-    console.log("Loaded page state from local storage... Page " + storedPageNumber);
+    console.log("Loaded page state", storedPageNumber, "from local storage.");
   }, [])
 
   // save pageNumber state to local storage
