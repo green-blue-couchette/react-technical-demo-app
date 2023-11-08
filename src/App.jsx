@@ -70,7 +70,7 @@ function App() {
           Here, I collect different mini-applications to showcase my skills and try out ideas. I might incorporate different elements and ideas found here into other, standalone web apps. <br></br>
           Things here may look incomplete or change. Stay tuned! - Oliver <br></br>
           <br></br>
-          Navigate the pages using the input fields.
+          Navigate the pages using the drop-down menu.
           <br></br>
         </p>  
         </header>
