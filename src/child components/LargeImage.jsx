@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import loading_spinner from "../assets/loading-spinner.gif";
+import loading_spinner from '../assets/loading-spinner.gif';
 
 export default function LargeImage({imageSrc, width, alt}) {
 

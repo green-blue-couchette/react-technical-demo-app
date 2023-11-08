@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
-import CFR_TRANSYLVANIA from "../assets/CFR_IANCU_REVERB.wav";
-import CFR_BUCHAREST from "../assets/CFR_GLASUL_ROTILOR.wav";
-import loading_spinner from "../assets/loading-spinner.gif";
-import speaker from "../assets/speaker.gif";
+import CFR_TRANSYLVANIA from '../assets/CFR_IANCU_REVERB.wav';
+import CFR_BUCHAREST from '../assets/CFR_GLASUL_ROTILOR.wav';
+import loading_spinner from '../assets/loading-spinner.gif';
+import speaker from '../assets/speaker.gif';
 
 import * as credentials from '../credentials.js';
 
