@@ -63,7 +63,7 @@ function App() {
 
   return (
     <>
-      <div style={{ textAlign: 'center', color: "darkBlue", borderStyle: "dashed"}}>
+      <div style={{ textAlign: "center", color: "darkBlue", borderStyle: "dashed"}}>
         <header>
         <p>
           I built this web app to help myself re-learn React. <br></br>
