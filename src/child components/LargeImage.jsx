@@ -17,7 +17,7 @@ export default function LargeImage({imageSrc, width, alt}) {
     },[imageSrc]);
 
   return (
-    <>
+    <div style={{textAlign: "center"}}>
         <img src={loading_spinner}
              alt="loading"
              style={{display: imageHasLoaded? "none" : ""}}>
@@ -29,6 +29,6 @@ export default function LargeImage({imageSrc, width, alt}) {
              onLoad={() => setImageHasLoaded(true)}
              style={{display: imageHasLoaded? "" : "none"}}>
         </img>
-    </>
+    </div>
   )
 }

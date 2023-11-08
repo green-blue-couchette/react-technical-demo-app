@@ -33,7 +33,7 @@ export default function Pg2Trains() {
           imageSrc={trainsPageImages.trainImage} 
           width="500px"
           alt="Romanian train" />
-        <br></br>
+          
         <label>
           Picture owner: {trainsPageImages.credits.owner},
           <a href={trainsPageImages.credits.sourcePage} target="_blank" rel="noopener noreferrer">
