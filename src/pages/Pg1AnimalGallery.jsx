@@ -26,7 +26,7 @@ export default function Pg1AnimalGallery() {
       <button onClick={toggleShowPhoto}>Show/hide photo!</button>
       
       <label>Display animal:</label>
-      <input ref={animalNumberRef} onChange={updateAnimalNumber} value={animalNumber} type="text"></input>
+      <input ref={animalNumberRef} onChange={updateAnimalNumber} value={animalNumber} type="number"></input>
 
       <PhotoFrame isVisible={photoIsVisible} animalNumber={animalNumber}/>
     </>
