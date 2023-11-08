@@ -77,9 +77,10 @@ function App() {
       </div>
       <br></br>
 
-      {/*The div contains all my own code.*/}
+      {/*The div contains the page switcher drop-down and the displayed page content.*/}
       <div>
-        {/* START CODE FOR SWITCHING BETWEEN PAGES*/}
+
+        {/* START CODE FOR PAGE SWITCHER*/}
         <label>Page: </label>
         <form>
           <select onChange={changeToPage} ref={pageNumberRef}>
@@ -89,9 +90,11 @@ function App() {
           </select>
         </form>
         <hr></hr>
-        {/* END CODE FOR SWITCHING BETWEEN PAGES*/}
+        {/* END CODE FOR PAGE SWITCHER*/}
         
+        {/* START CODE FOR PAGE CONTENT */}
         {pageContent}
+        {/* END CODE FOR PAGE CONTENT */}
         
       </div>
 
