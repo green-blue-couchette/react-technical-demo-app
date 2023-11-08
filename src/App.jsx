@@ -82,14 +82,12 @@ function App() {
 
         {/* START CODE FOR PAGE SWITCHER*/}
         <label>Page: </label>
-        <form>
-          <select onChange={changeToPage} ref={pageNumberRef}>
-            <option value="0" selected={0==pageNumber} disabled hidden></option> {/* Disabled menu item for closed page case */}
-            <option value="1" selected={1==pageNumber}>Animals gallery</option>
-            <option value="2" selected={2==pageNumber}>Trains</option>
-            <option value="3" selected={3==pageNumber}>Workouts</option>
-          </select>
-        </form>
+        <select onChange={changeToPage} ref={pageNumberRef}>
+          <option value="0" selected={0==pageNumber} disabled hidden></option> {/* Disabled menu item for closed page case */}
+          <option value="1" selected={1==pageNumber}>Animals gallery</option>
+          <option value="2" selected={2==pageNumber}>Trains</option>
+          <option value="3" selected={3==pageNumber}>Workouts</option>
+        </select>
         <hr></hr>
         {/* END CODE FOR PAGE SWITCHER*/}
         
