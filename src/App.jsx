@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
-import Pg1AnimalGallery from './Pg1AnimalGallery';
-import Pg2Trains from './Pg2Trains';
-import Pg3Workouts from './Pg3Workouts';
+import Pg1AnimalGallery from './pages/Pg1AnimalGallery';
+import Pg2Trains from './pages/Pg2Trains';
+import Pg3Workouts from './pages/Pg3Workouts';
 
 function App() {
   

@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import PhotoFrame from './PhotoFrame';
+import PhotoFrame from '../child components/PhotoFrame';
 
 export default function Pg1AnimalGallery() {
   const [photoIsVisible, setPhotoIsVisible] = useState([true]);
