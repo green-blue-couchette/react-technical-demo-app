@@ -15,12 +15,12 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   const [fromDirection, setFromDirection] = useState(false);
   const [multipleTrainsAtPlatform, setMultipleTrainsAtPlatform] = useState(false);
 
-  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("nothing playing back");
+  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("stopped");
   /**
    * 3 states:
-   * 1) "nothing playing back"
-   * 2) "fetching announcement audio"
-   * 3) "playing back now"
+   * 1) "stopped"
+   * 2) "fetching"
+   * 3) "playing"
    */
 
   const announcementIntroRef = useRef();
@@ -68,7 +68,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   },[introSong, announcementAudio]);
 
   useEffect(() => {
-    if(announcementPlaybackState === "playing back now"){
+    if(announcementPlaybackState === "playing"){
       introSong.play();
 
       introSong.onended = () => {
@@ -76,7 +76,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       };
 
       announcementAudio.onended = () => {
-        setAnnouncementPlaybackState("nothing playing back");
+        setAnnouncementPlaybackState("stopped");
       }
 
       // Add these two audio players to their respective refs... (yet to be implemented)
@@ -235,7 +235,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   }
 
   async function fetchTTSAnnouncement(announcementString){
-    setAnnouncementPlaybackState("fetching announcement audio");
+    setAnnouncementPlaybackState("fetching");
 
     const requestData = {
       "token":  credentials.API_TOKEN,
@@ -280,7 +280,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     setAnnouncementAudio(new Audio(mp3FileLocation));
     
     // Play intro song, then play announcement.
-     setAnnouncementPlaybackState("playing back now");
+     setAnnouncementPlaybackState("playing");
   }
   
   return (
@@ -298,9 +298,9 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
      *    Renders contents conditionally.
      */}
       <div style={{textAlign: "center", minHeight: "64px", maxHeight: "64px"}}>
-        {  ("nothing playing back" === announcementPlaybackState && <div></div>)
-        || ("fetching announcement audio" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}} alt="animated loading icon"></img>)
-        || ("playing back now" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}} alt="animated playback icon"></img>)
+        {  ("stopped" === announcementPlaybackState && <div></div>)
+        || ("fetching" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}} alt="animated loading icon"></img>)
+        || ("playing" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}} alt="animated playback icon"></img>)
         }
       </div>
       
