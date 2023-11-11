@@ -44,6 +44,24 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
+  // When component is attached
+  useEffect(() => {
+    handleSelectTrainType();
+
+    // When component is about to detach, stop playing the intro/announcement audios
+    return () => {
+      
+      if(!introSongRef.current.paused){
+        introSongRef.current.pause();
+      }
+        
+      if(!announcementAudioRef.current.paused){
+        announcementAudioRef.current.pause();
+      }
+        
+    }
+  },[]);
+
   useEffect(() => {
     introSongRef.current = introSong;
     announcementAudioRef.current = announcementAudio;
@@ -66,7 +84,46 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     }
   }, [announcementPlaybackState]);
 
-  
+  function handleSelectTrainType(){
+    // trainTypeRef.current.value
+    let trainImageURL = "";
+    let owner = "";
+    let sourcePage = "";
+    let displayedURL = "";
+    
+    if(trainTypeRef.current.value === "IRN"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/dormit/61%2053%2070-91%20009-8-BucN-003.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_70-91.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "IR"){
+      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/26-16/50%2053%2026-16%20004-9-24.05.2008.jpg";
+      owner = "Dragoş Anoaica";
+      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_26-16.htm";
+      displayedURL = "transport-in-comun.ro/trenuri/";
+    }
+    
+    else if(trainTypeRef.current.value === "R"){
+      trainImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/17-buc_%281%29.jpg/640px-17-buc_%281%29.jpg";
+      owner = "Stefan Bichler";
+      sourcePage = "https://commons.wikimedia.org/wiki/File:17-buc_(1).jpg";
+      displayedURL = "commons.wikimedia.org";
+    }
+
+    setImagesState({
+      ...imagesState,
+      trainImage : trainImageURL,
+      credits:{
+        ...imagesState.credits,
+        owner : owner,
+        sourcePage : sourcePage,
+        displayedURL : displayedURL
+      }
+    });
+  }
+
   function parseAnnouncement(){
     // Parse the data from the announcement form, in the right order, into a string.
     /** Announcement structure (preliminary):
@@ -224,64 +281,6 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     
     // Play intro song, then play announcement.
      setAnnouncementPlaybackState("playing back now");
-  }
-
-  // When component is attached
-  useEffect(() => {
-    handleSelectTrainType();
-
-    // When component is about to detach, stop playing the intro/announcement audios
-    return () => {
-      
-      if(!introSongRef.current.paused){
-        introSongRef.current.pause();
-      }
-        
-      if(!announcementAudioRef.current.paused){
-        announcementAudioRef.current.pause();
-      }
-        
-    }
-  },[]);
-
-  function handleSelectTrainType(){
-    // trainTypeRef.current.value
-    let trainImageURL = "";
-    let owner = "";
-    let sourcePage = "";
-    let displayedURL = "";
-    
-    if(trainTypeRef.current.value === "IRN"){
-      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/dormit/61%2053%2070-91%20009-8-BucN-003.jpg";
-      owner = "Dragoş Anoaica";
-      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_70-91.htm";
-      displayedURL = "transport-in-comun.ro/trenuri/";
-    }
-    
-    else if(trainTypeRef.current.value === "IR"){
-      trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/26-16/50%2053%2026-16%20004-9-24.05.2008.jpg";
-      owner = "Dragoş Anoaica";
-      sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_26-16.htm";
-      displayedURL = "transport-in-comun.ro/trenuri/";
-    }
-    
-    else if(trainTypeRef.current.value === "R"){
-      trainImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/17-buc_%281%29.jpg/640px-17-buc_%281%29.jpg";
-      owner = "Stefan Bichler";
-      sourcePage = "https://commons.wikimedia.org/wiki/File:17-buc_(1).jpg";
-      displayedURL = "commons.wikimedia.org";
-    }
-
-    setImagesState({
-      ...imagesState,
-      trainImage : trainImageURL,
-      credits:{
-        ...imagesState.credits,
-        owner : owner,
-        sourcePage : sourcePage,
-        displayedURL : displayedURL
-      }
-    });
   }
   
   return (
