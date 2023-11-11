@@ -36,12 +36,37 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   const doesNotStopAtSelectedStationsRef = useRef();
 
-  let intro = new Audio();
-  let announcement = new Audio();
+  const [introSong, setIntroSong] = useState(new Audio());
+  const [announcementAudio, setAnnouncementAudio] = useState(new Audio());
+  const introSongRef = useRef();
+  const announcementAudioRef = useRef();
 
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
+  useEffect(() => {
+    introSongRef.current = introSong;
+    announcementAudioRef.current = announcementAudio;
+  },[introSong, announcementAudio]);
+
+  useEffect(() => {
+    if(announcementPlaybackState === "playing back now"){
+      introSong.play();
+
+      introSong.onended = () => {
+        announcementAudio.play();
+      };
+
+      announcementAudio.onended = () => {
+        setAnnouncementPlaybackState("nothing playing back");
+      }
+
+      // Add these two audio players to their respective refs... (yet to be implemented)
+
+    }
+  }, [announcementPlaybackState]);
+
+  
   function parseAnnouncement(){
     // Parse the data from the announcement form, in the right order, into a string.
     /** Announcement structure (preliminary):
@@ -180,38 +205,43 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     // Choose intro song.
     const announcementIntroName = announcementIntroRef.current.value;
     
+    
     if(announcementIntroName === "Transylvania")
-      intro = new Audio(CFR_TRANSYLVANIA);
+      setIntroSong(new Audio(CFR_TRANSYLVANIA));
     else if (announcementIntroName === "Bucharest")
-      intro = new Audio(CFR_BUCHAREST);
-
+      setIntroSong(new Audio(CFR_BUCHAREST));
+      
     // Parse announcement into a string
     console.log("Parsing announcement into a string..."); // logging
     let announcementString = parseAnnouncement();
     console.log("Announcement is:", announcementString); // logging
   
     // Make API call to Text-to-Speech service.
-    console.log("Fetching spoken announcement from TTS API..."); // logging
+    console.log("Fetching spoken announcementW from TTS API..."); // logging
     const mp3FileLocation = await fetchTTSAnnouncement(announcementString);
     console.log("MP3 FILE IS AT", mp3FileLocation); // logging
-    announcement = new Audio(mp3FileLocation);
-
+    setAnnouncementAudio(new Audio(mp3FileLocation));
+    
     // Play intro song, then play announcement.
-    setAnnouncementPlaybackState("playing back now");
-
-    intro.play();
-
-    intro.onended = () => {
-      announcement.play();
-    };
-
-    announcement.onended = () => {
-      setAnnouncementPlaybackState("nothing playing back");
-    }
+     setAnnouncementPlaybackState("playing back now");
   }
 
+  // When component is attached
   useEffect(() => {
     handleSelectTrainType();
+
+    // When component is about to detach, stop playing the intro/announcement audios
+    return () => {
+      
+      if(!introSongRef.current.paused){
+        introSongRef.current.pause();
+      }
+        
+      if(!announcementAudioRef.current.paused){
+        announcementAudioRef.current.pause();
+      }
+        
+    }
   },[]);
 
   function handleSelectTrainType(){
