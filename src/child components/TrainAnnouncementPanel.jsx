@@ -46,7 +46,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   // When component is attached
   useEffect(() => {
-    handleSelectTrainType();
+    handleSelectTrainType(); // Update the state that stores the displayed train page and credits, in accordance with the pre-selected Train type of this component
 
     // When component is about to detach, stop playing the intro/announcement audios
     return () => {
@@ -62,11 +62,13 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     }
   },[]);
 
+  // Update the refs of the audio players, when the audio players are changed.
   useEffect(() => {
     introSongRef.current = introSong;
     announcementAudioRef.current = announcementAudio;
   },[introSong, announcementAudio]);
 
+  // Handle changes to the announcement playback state
   useEffect(() => {
     if(announcementPlaybackState === "playing"){
       introSong.play();
