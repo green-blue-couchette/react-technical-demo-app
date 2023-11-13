@@ -70,6 +70,16 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   // Handle changes to the announcement playback state
   useEffect(() => {
+    // If an announcement is already playing, stop it
+    if(announcementPlaybackState === "fetching"){
+      if(!introSongRef.current.paused){
+        introSongRef.current.pause();
+      }      
+      if(!announcementAudioRef.current.paused){
+        announcementAudioRef.current.pause();
+      }
+    }
+
     if(announcementPlaybackState === "playing"){
       introSong.play();
 
@@ -260,16 +270,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   }
 
   async function makeAnnouncement(){
-  
-    // Choose intro song.
-    const announcementIntroName = announcementIntroRef.current.value;
     
-    
-    if(announcementIntroName === "Transylvania")
-      setIntroSong(new Audio(CFR_TRANSYLVANIA));
-    else if (announcementIntroName === "Bucharest")
-      setIntroSong(new Audio(CFR_BUCHAREST));
-      
     // Parse announcement into a string
     console.log("Parsing announcement into a string..."); // logging
     let announcementString = parseAnnouncement();
@@ -280,6 +281,14 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     const mp3FileLocation = await fetchTTSAnnouncement(announcementString);
     console.log("MP3 FILE IS AT", mp3FileLocation); // logging
     setAnnouncementAudio(new Audio(mp3FileLocation));
+
+    // Choose intro song.
+    const announcementIntroName = announcementIntroRef.current.value;
+    
+    if(announcementIntroName === "Transylvania")
+      setIntroSong(new Audio(CFR_TRANSYLVANIA));
+    else if (announcementIntroName === "Bucharest")
+      setIntroSong(new Audio(CFR_BUCHAREST));
     
     // Play intro song, then play announcement.
      setAnnouncementPlaybackState("playing");
