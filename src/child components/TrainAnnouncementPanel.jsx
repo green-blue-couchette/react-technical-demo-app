@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react'
+
 import CFR_TRANSYLVANIA from '../assets/CFR_IANCU_REVERB.wav';
 import CFR_BUCHAREST from '../assets/CFR_GLASUL_ROTILOR.wav';
 import loading_spinner from '../assets/loading-spinner.gif';
 import speaker from '../assets/speaker.gif';
 
 import * as credentials from '../credentials.js';
-
 
 export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
@@ -14,15 +14,6 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   const [continuesToward, setContinuesToward] = useState(false);
   const [fromDirection, setFromDirection] = useState(false);
   const [multipleTrainsAtPlatform, setMultipleTrainsAtPlatform] = useState(false);
-
-  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("stopped");
-  /**
-   * 4 states:
-   * 1) "stopped"
-   * 2) "preparing"
-   * 3) "fetching"
-   * 4) "playing"
-   */
 
   const announcementIntroRef = useRef();
   const trainTypeRef = useRef();
@@ -42,40 +33,44 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   const introSongRef = useRef();
   const announcementAudioRef = useRef();
 
+  const [announcementPlaybackState, setAnnouncementPlaybackState] = useState("stopped");
+  /**
+   * 4 states:
+   * 1) "stopped"
+   * 2) "preparing"
+   * 3) "fetching"
+   * 4) "playing"
+   */
+
   const proxyURL = "https://corsproxy.io/?";
   const speechGeneratorAddress = "https://speechgen.io/index.php?r=api/text";
 
-  // When component is attached
+  // When component is mounted
   useEffect(() => {
     handleSelectTrainType(); // Update the state that stores the displayed train page and credits, in accordance with the pre-selected Train type of this component
 
-    // When component is about to detach, stop playing the intro/announcement audios
+    // When component is about to unmount, stop playing the intro/announcement audios
     return () => {
-      
       if(!introSongRef.current.paused){
         introSongRef.current.pause();
       }
-        
       if(!announcementAudioRef.current.paused){
         announcementAudioRef.current.pause();
-      }
-        
+      } 
     }
-  },[]);
+  }, []);
 
   // Update the refs of the audio players, when the audio players are changed.
   useEffect(() => {
     introSongRef.current = introSong;
     announcementAudioRef.current = announcementAudio;
-  },[introSong, announcementAudio]);
+  }, [introSong, announcementAudio]);
 
   // Handle changes to the announcement playback state
+  // Controls intro/announcement audio players
   useEffect(() => {
     // If an announcement is already playing, stop it
-
     if(announcementPlaybackState === "preparing" || announcementPlaybackState === "fetching"){
-      
-      
       if(!introSongRef.current.paused){
         introSongRef.current.pause();
       }      
@@ -86,22 +81,16 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
     if(announcementPlaybackState === "playing"){
       introSong.play();
-
       introSong.onended = () => {
         announcementAudio.play();
       };
-
       announcementAudio.onended = () => {
         setAnnouncementPlaybackState("stopped");
       }
-
-      // Add these two audio players to their respective refs... (yet to be implemented)
-
     }
   }, [announcementPlaybackState]);
 
   function handleSelectTrainType(){
-    // trainTypeRef.current.value
     let trainImageURL = "";
     let owner = "";
     let sourcePage = "";
@@ -113,14 +102,12 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_70-91.htm";
       displayedURL = "transport-in-comun.ro/trenuri/";
     }
-    
     else if(trainTypeRef.current.value === "IR"){
       trainImageURL = "http://transport-in-comun.ro/trenuri/vag-cal/26-16/50%2053%2026-16%20004-9-24.05.2008.jpg";
       owner = "Dragoş Anoaica";
       sourcePage = "http://transport-in-comun.ro/trenuri/vag-cal/vag_26-16.htm";
       displayedURL = "transport-in-comun.ro/trenuri/";
     }
-    
     else if(trainTypeRef.current.value === "R"){
       trainImageURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/17-buc_%281%29.jpg/640px-17-buc_%281%29.jpg";
       owner = "Stefan Bichler";
@@ -142,7 +129,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
   function parseAnnouncement(){
     // Parse the data from the announcement form, in the right order, into a string.
-    /** Announcement structure (preliminary):
+    /** Announcement structure (Romanian):
      * Stimați călători.
       Trenul <Train type> <train no.> operat de CFR Călători.
       Din direcția <starting station>, <list of stations>.
@@ -194,24 +181,21 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
     // Add "continues toward direction"
     announcementString += "și va pleca în direcția ";
-      // If multiple "toward" stations are provided, add those
-      if(continuesToward)
-        announcementString += continuesTowardStations.current.value + ", ";
-      // Add final station name
-      announcementString += destinationStationRef.current.value;
+    // If multiple "toward" stations are provided, add those
+    if(continuesToward)
+      announcementString += continuesTowardStations.current.value + ", ";
+    // Add final station name
+    announcementString += destinationStationRef.current.value;
 
     announcementString += ". ";
   
     // IF train skips some stations
-    if(!stopsAtAllStations)
-    {
-      if(onlyStopsAtFinalStation) // if train only stops at last station, add THAT to the announcement.
-      {
+    if(!stopsAtAllStations){
+      if(onlyStopsAtFinalStation){ // if train only stops at last station, add THAT to the announcement.
         announcementString += "Atenție! Trenul nu se oprește până la stația ";
         announcementString += destinationStationRef.current.value;
       }
-      else // else (if train skips SELECTED stations), add THOSE to the announcement.
-      {
+      else{ // else (if train skips SELECTED stations), add THOSE to the announcement.
         announcementString += "Atenție! Trenul nu se oprește la stațiile ";
         announcementString += doesNotStopAtSelectedStationsRef.current.value;
       }
@@ -220,7 +204,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     
     // if multiple trains at this platform, add that to the announcement.
     if(multipleTrainsAtPlatform)
-    announcementString += "Atenție! Alte trenuri se află pe aceeași linie. Asigurați-vă că v-ați îmbarcat în trenul corect. "
+      announcementString += "Atenție! Alte trenuri se află pe aceeași linie. Asigurați-vă că v-ați îmbarcat în trenul corect. "
 
     // Add "please be careful when boarding the railcars" and "we wish you a pleasant journey" (fixed string)
     announcementString += "Vă rugăm să fiți atenți la îmbarcarea în vagoane. Vă dorim călătorie plăcută!";
@@ -247,7 +231,6 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       ", does not stop at selected stations:", doesNotStopAtSelectedStationsRef.current.value
       );
     */
-
   }
 
   async function fetchTTSAnnouncement(announcementString){
@@ -291,19 +274,19 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     console.log("Announcement is:", announcementString); // logging
   
     // Make API call to Text-to-Speech service.
-    console.log("Fetching spoken announcementW from TTS API..."); // logging
+    console.log("Fetching spoken announcement from TTS API..."); // logging
     const mp3FileLocation = await fetchTTSAnnouncement(announcementString);
     console.log("MP3 FILE IS AT", mp3FileLocation); // logging
     setAnnouncementAudio(new Audio(mp3FileLocation));
 
     // Play intro song, then play announcement.
-     setAnnouncementPlaybackState("playing");
+    setAnnouncementPlaybackState("playing");
   }
   
   return (
     <>
     
-    {/** "Play Announcement" button */}
+      {/** "Play Announcement" button */}
       <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
       <input
         style={{width:"100%"}}
@@ -311,9 +294,9 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
         defaultValue="Play announcement"
         onClick={makeAnnouncement} />
 
-    {/**  Div for loading and loudspeaker gifs .
-     *    Renders contents conditionally.
-     */}
+      {/**  Div for loading and loudspeaker gifs .
+       *    Renders contents conditionally.
+       */}
       <div style={{textAlign: "center", minHeight: "64px", maxHeight: "64px"}}>
         {  ("stopped" === announcementPlaybackState && <div></div>)
         || ("fetching" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}} alt="animated loading icon"></img>)
@@ -321,7 +304,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
         }
       </div>
       
-    {/** "Announcement intro" input */}
+      {/** "Announcement intro" input */}
       <label htmlFor="announcementIntro">Announcement intro: </label>
       <select
         style={{width: "65%"}}
@@ -333,7 +316,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       </select>
       <br></br>
 
-    {/** Train code inputs */}
+      {/** Train code inputs */}
       <label htmlFor="trainCode">Train: </label>
       <select
         style={{width: "75px"}}
@@ -353,7 +336,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       <br></br>
 
 
-    {/** "Starting station / destination station" inputs */}
+      {/** "Starting station / destination station" inputs */}
       <label htmlFor="startingStation">Starting station: </label>
       <input
         type="text"
@@ -372,7 +355,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
       <br></br>
 
 
-    {/** "Arrives at platform / multiple stations at this platform" inputs */}
+      {/** "Arrives at platform / multiple stations at this platform" inputs */}
       <label htmlFor="arrivalPlatform">Arrives at platform: </label>
       <input
         type="number"
@@ -457,7 +440,6 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
         ref={doesNotStopAtSelectedStationsRef} />
       <br></br>
       <br></br>
-
       
       {/** Structure of the Announcement form...
        * (For future versions:

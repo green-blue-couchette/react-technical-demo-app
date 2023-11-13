@@ -14,7 +14,7 @@ export default function LargeImage({imageSrc, width, alt}) {
      */    
     useEffect(() => {
         setImageHasLoaded(false);
-    },[imageSrc]);
+    }, [imageSrc]);
 
   return (
     <div style={{textAlign: "center"}}>
