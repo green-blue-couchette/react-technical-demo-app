@@ -51,14 +51,18 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
 
     // When component is about to unmount, stop playing the intro/announcement audios
     return () => {
-      if(!introSongRef.current.paused){
-        introSongRef.current.pause();
-      }
-      if(!announcementAudioRef.current.paused){
-        announcementAudioRef.current.pause();
-      } 
+      stopAudioPlayers();
     }
   }, []);
+
+  function stopAudioPlayers(){
+    if(!introSongRef.current.paused){
+      introSongRef.current.pause();
+    }
+    if(!announcementAudioRef.current.paused){
+      announcementAudioRef.current.pause();
+    } 
+  }
 
   // Update the refs of the audio players, when the audio players are changed.
   useEffect(() => {
@@ -71,12 +75,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
   useEffect(() => {
     // If an announcement is already playing, stop it
     if(announcementPlaybackState === "preparing" || announcementPlaybackState === "fetching"){
-      if(!introSongRef.current.paused){
-        introSongRef.current.pause();
-      }      
-      if(!announcementAudioRef.current.paused){
-        announcementAudioRef.current.pause();
-      }
+      stopAudioPlayers();
     }
 
     if(announcementPlaybackState === "playing"){
