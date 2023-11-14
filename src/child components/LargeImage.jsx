@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import loading_spinner from "./assets/loading-spinner.gif";
+import loading_spinner from '../assets/loading-spinner.gif';
 
 export default function LargeImage({imageSrc, width, alt}) {
 
@@ -14,10 +14,10 @@ export default function LargeImage({imageSrc, width, alt}) {
      */    
     useEffect(() => {
         setImageHasLoaded(false);
-    },[imageSrc]);
+    }, [imageSrc]);
 
   return (
-    <>
+    <div style={{textAlign: "center"}}>
         <img src={loading_spinner}
              alt="loading"
              style={{display: imageHasLoaded? "none" : ""}}>
@@ -29,6 +29,6 @@ export default function LargeImage({imageSrc, width, alt}) {
              onLoad={() => setImageHasLoaded(true)}
              style={{display: imageHasLoaded? "" : "none"}}>
         </img>
-    </>
+    </div>
   )
 }

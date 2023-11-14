@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import PhotoFrame from './PhotoFrame';
+import PhotoFrame from '../child components/AnimalPhotoFrame';
 
 export default function Pg1AnimalGallery() {
   const [photoIsVisible, setPhotoIsVisible] = useState([true]);
@@ -26,7 +26,7 @@ export default function Pg1AnimalGallery() {
       <button onClick={toggleShowPhoto}>Show/hide photo!</button>
       
       <label>Display animal:</label>
-      <input ref={animalNumberRef} onChange={updateAnimalNumber} value={animalNumber} type="text"></input>
+      <input ref={animalNumberRef} onChange={updateAnimalNumber} value={animalNumber} type="number"></input>
 
       <PhotoFrame isVisible={photoIsVisible} animalNumber={animalNumber}/>
     </>

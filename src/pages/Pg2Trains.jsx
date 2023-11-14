@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import TrainAnnouncementPanel from "./TrainAnnouncementPanel";
-import LargeImage from './LargeImage';
+import TrainAnnouncementPanel from '../child components/TrainAnnouncementPanel';
+import LargeImage from '../child components/LargeImage';
 import './Pg2Trains.css';
 
 export default function Pg2Trains() {
@@ -24,16 +24,16 @@ export default function Pg2Trains() {
       <h5>
         Note: This site is not affiliated with, nor endorsed by, any of the railway operators mentioned.
         <br/>
-        All trademarks, images, and other such materials belong to their respective owners. I claim no ownership of them.
+        All trademarks, images, and other such materials belong to their respective owners.
       </h5>
       
       {/** Picture of selected train type */}
-      <div class="bigTrainsPageContent">
+      <div className="bigTrainsPageContent">
         <LargeImage
           imageSrc={trainsPageImages.trainImage} 
           width="500px"
           alt="Romanian train" />
-        <br></br>
+          
         <label>
           Picture owner: {trainsPageImages.credits.owner},
           <a href={trainsPageImages.credits.sourcePage} target="_blank" rel="noopener noreferrer">
@@ -42,12 +42,12 @@ export default function Pg2Trains() {
         </label>
       </div>
         
-      <div class="bigTrainsPageContent">
+      <div className="bigTrainsPageContent">
         <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
       </div>
 
       {/** Picture of selected railway operator */}
-      <div class="smallTrainsPageContent">
+      <div className="smallTrainsPageContent">
         <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
       </div>
     </>
