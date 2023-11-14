@@ -172,7 +172,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     if(fromDirection)
       announcementString += ", " + fromDirectionStations.current.value;
 
-    announcementString += " ";
+    announcementString += ", ";
 
     // Add "arrives at platform no. x" (preamble + platform no.)
     announcementString += "sosește în stație la linia ";
