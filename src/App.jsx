@@ -36,23 +36,17 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pageNumber));
 
     // logging
-    console.log("Saved page " + pageNumber + " to local storage");
+    console.log("Page changed to " + pageNumber + ". Saved to local storage.");
   }, [pageNumber])
   
   
   function changeToPage(){
     const newPageNumber = pageNumberRef.current.value;
     setPageNumber(newPageNumber);
-
-    // logging
-    console.log("Page changed to " + newPageNumber);
   }
 
   function closePage(){
     setPageNumber(0);
-
-    // logging (Breaks 'DRY')
-    console.log("Page changed to 0");
   }
 
   // change displayed page
