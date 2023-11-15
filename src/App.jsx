@@ -87,7 +87,7 @@ function App() {
       {/*The div contains the page switcher drop-down and the displayed page content.*/}
       <div>
 
-        {/* START CODE FOR PAGE SWITCHER*/}
+        {/* START CODE FOR PAGE NAVIGATION*/}
         <label>Page: </label>
         <select onChange={changeToPage} ref={pageNumberRef}>
           <option value="0" selected={0==pageNumber} disabled hidden></option> {/* Disabled menu item for closed page case */}
@@ -99,7 +99,7 @@ function App() {
         <input type="button" value="Close page" onClick={closePage} />
 
         <hr></hr>
-        {/* END CODE FOR PAGE SWITCHER*/}
+        {/* END CODE FOR PAGE NAVIGATION*/}
         
         {/* START CODE FOR PAGE CONTENT */}
         {pageContent}
