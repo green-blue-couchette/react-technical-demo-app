@@ -21,7 +21,7 @@ function App() {
       // logging
       console.log("No stored page was found (got value", storedPageNumber, "from localStorage.) Defaulting to the closed page.");
 
-      setPageNumber(0);
+      closePage();
       return;
     }
 
@@ -36,16 +36,17 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(pageNumber));
 
     // logging
-    console.log("Saved page " + pageNumber + " to local storage");
+    console.log("Page changed to " + pageNumber + ". Saved to local storage.");
   }, [pageNumber])
   
   
   function changeToPage(){
     const newPageNumber = pageNumberRef.current.value;
     setPageNumber(newPageNumber);
+  }
 
-    // logging
-    console.log("Page changed to " + newPageNumber);
+  function closePage(){
+    setPageNumber(0);
   }
 
   // change displayed page
@@ -80,7 +81,7 @@ function App() {
       {/*The div contains the page switcher drop-down and the displayed page content.*/}
       <div>
 
-        {/* START CODE FOR PAGE SWITCHER*/}
+        {/* START CODE FOR PAGE NAVIGATION*/}
         <label>Page: </label>
         <select onChange={changeToPage} ref={pageNumberRef}>
           <option value="0" selected={0==pageNumber} disabled hidden></option> {/* Disabled menu item for closed page case */}
@@ -88,8 +89,11 @@ function App() {
           <option value="2" selected={2==pageNumber}>Trains</option>
           <option value="3" selected={3==pageNumber}>Workouts</option>
         </select>
+
+        <input type="button" value="Close page" onClick={closePage} />
+
         <hr></hr>
-        {/* END CODE FOR PAGE SWITCHER*/}
+        {/* END CODE FOR PAGE NAVIGATION*/}
         
         {/* START CODE FOR PAGE CONTENT */}
         {pageContent}
