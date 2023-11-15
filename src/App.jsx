@@ -21,7 +21,7 @@ function App() {
       // logging
       console.log("No stored page was found (got value", storedPageNumber, "from localStorage.) Defaulting to the closed page.");
 
-      setPageNumber(0);
+      closePage();
       return;
     }
 
