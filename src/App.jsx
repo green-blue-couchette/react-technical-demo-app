@@ -48,6 +48,13 @@ function App() {
     console.log("Page changed to " + newPageNumber);
   }
 
+  function closePage(){
+    setPageNumber(0);
+
+    // logging (Breaks 'DRY')
+    console.log("Page changed to 0");
+  }
+
   // change displayed page
   useEffect(() => {
     if(pageNumber == 1 ) // animals gallery
@@ -88,6 +95,9 @@ function App() {
           <option value="2" selected={2==pageNumber}>Trains</option>
           <option value="3" selected={3==pageNumber}>Workouts</option>
         </select>
+
+        <input type="button" value="Close page" onClick={closePage} />
+
         <hr></hr>
         {/* END CODE FOR PAGE SWITCHER*/}
         
