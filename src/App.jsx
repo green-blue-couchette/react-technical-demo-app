@@ -21,7 +21,6 @@ function App() {
       </div>
       <br></br>
 
-      {/*The div contains the page switcher drop-down and the displayed page content.*/}
       <div>
 
         {/* START CODE FOR PAGE NAVIGATION*/}
