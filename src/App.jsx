@@ -1,4 +1,4 @@
-import Pg2Trains from './pages/Pg2Trains';
+import PgTrains from './pages/PgTrains';
 import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
         {/* START CODE FOR PAGE CONTENT */}
         <Routes>
           <Route path="/"         element={<h1>Use the navbar above!</h1>}/>
-          <Route path="/trains"   element={<Pg2Trains/>}/>
+          <Route path="/trains"   element={<PgTrains/>}/>
         </Routes>
         {/* END CODE FOR PAGE CONTENT */}
         

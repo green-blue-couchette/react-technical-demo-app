@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import TrainAnnouncementPanel from '../child components/TrainAnnouncementPanel';
 import LargeImage from '../child components/LargeImage';
-import './Pg2Trains.css';
+import './PgTrains.css';
 
 export default function Pg2Trains() {
 
