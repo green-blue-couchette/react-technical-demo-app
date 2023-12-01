@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import TrainAnnouncementPanel from '../child components/TrainAnnouncementPanel';
 import LargeImage from '../child components/LargeImage';
-import './PgTrains.css';
+
+import '../stylesheets/PgTrains.css';
 
 export default function Pg2Trains() {
 
@@ -18,38 +19,46 @@ export default function Pg2Trains() {
   const [trainsPageImages, setTrainsPageImages] = useState(defaultTrainsPageImages);
 
   return (
-    <>
-      <h1>Trains page</h1>
+    <div className='trainsPage'>
 
-      <h5>
-        Note: This site is not affiliated with, nor endorsed by, any of the railway operators mentioned.
-        <br/>
-        All trademarks, images, and other such materials belong to their respective owners.
-      </h5>
+      <div className='pageHead'>
+        <h1>Trains page</h1>
+
+        <p className='disclaimer'>
+          Note: This site is not affiliated with, nor endorsed by, any of the railway operators mentioned.
+          All trademarks, images, and other such materials belong to their respective owners.
+        </p>
+      </div>
       
-      {/** Picture of selected train type */}
-      <div className="bigTrainsPageContent">
-        <LargeImage
-          imageSrc={trainsPageImages.trainImage} 
-          width="500px"
-          alt="Romanian train" />
-          
-        <label>
-          Picture owner: {trainsPageImages.credits.owner},
-          <a href={trainsPageImages.credits.sourcePage} target="_blank" rel="noopener noreferrer">
-            {trainsPageImages.credits.displayedURL}
-          </a>
-        </label>
-      </div>
-        
-      <div className="bigTrainsPageContent">
-        <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
-      </div>
+      <div className='pageBody'>
+        {/** Picture of selected train type */}
+        <div className='bigTrainsPageContent'>
+          <LargeImage
+            imageSrc={trainsPageImages.trainImage} 
+            stylingID="large-image-component-on-trains-page-no-1"
+            imgWidth="500px"
+            alt="Romanian train"
+            />
 
-      {/** Picture of selected railway operator */}
-      <div className="smallTrainsPageContent">
-        <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
+          <label>
+            Picture owner: {trainsPageImages.credits.owner},
+            <a href={trainsPageImages.credits.sourcePage} target="_blank" rel="noopener noreferrer">
+              {trainsPageImages.credits.displayedURL}
+            </a>
+          </label>
+        </div>
+          
+        <div className='bigTrainsPageContent'>
+          <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
+        </div>
+
+        {/** Picture of selected railway operator */}
+        <div className='smallTrainsPageContent'>
+          <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
+        </div>
+
       </div>
-    </>
+      
+    </div>
   )
 }

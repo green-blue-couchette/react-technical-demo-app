@@ -1,0 +1,57 @@
+:root{
+    /*CFR CALATORI color cheme*/
+    --clr-cfr-blue: #03408f;
+    --clf-cfr-grey: gainsboro;
+}
+
+*{
+    font-family: Arial;
+}
+
+/*DEBUG*/
+/*
+div{
+    border-style: solid;
+}
+*/
+
+header{
+    text-align: center;
+    color: darkblue;
+    border-style: dashed;
+}
+
+nav{
+    text-align: center;
+    font-size: larger;
+    margin-top: 15px;
+}
+
+/*Navbar hyperlinks*/
+nav a{
+    margin: 10px;
+    text-decoration: none;
+    font-size: larger;
+
+    color: blueviolet;
+    text-shadow: 2px 2px paleturquoise;
+    /*
+    Other cool color combo:
+        color: goldenrod;
+        text-shadow: 2px 2px palegoldenrod;
+    */
+    /*
+    Other color combo that fits the CFR theme:
+    nav a
+        color: var(--clr-cfr-blue);
+        text-shadow: 2px 2px var(--clf-cfr-grey);
+        
+    nav a:hover
+        darkblue
+    */
+}
+
+/*Navbar hyperlinks*/
+nav a:hover{
+    color: hotpink;
+}

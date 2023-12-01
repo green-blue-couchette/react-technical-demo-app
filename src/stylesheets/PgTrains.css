@@ -1,0 +1,33 @@
+.trainsPage .pageBody{
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.trainsPage .bigTrainsPageContent{
+   padding: 5px;
+   min-width: 500px;
+   height: 415px;
+}
+
+.trainsPage .smallTrainsPageContent{
+   padding: 5px;
+   min-width: 200px;
+}
+
+.trainsPage .disclaimer{
+   margin: 10px 0px;
+   
+   color: red;
+   font-weight: bold;
+   font-size: smaller;
+}
+
+/*Styling the LargeImage component's instance from here, so future uses will not be affected by the same exact style rules*/
+#large-image-component-on-trains-page-no-1{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   min-height: 350px;
+}

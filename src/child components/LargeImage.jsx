@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import loading_spinner from '../assets/loading-spinner.gif';
 
-export default function LargeImage({imageSrc, width, alt}) {
+import '../stylesheets/LargeImage.css'
+
+export default function LargeImage({imageSrc, imgWidth, alt, stylingID}) {
 
     const [imageHasLoaded, setImageHasLoaded] = useState(false);
     /** Case 1 (default): Image has not yet loaded, display spinner
@@ -17,17 +19,21 @@ export default function LargeImage({imageSrc, width, alt}) {
     }, [imageSrc]);
 
   return (
-    <div style={{textAlign: "center"}}>
+    <div className='large-image-component' id={stylingID}>
         <img src={loading_spinner}
              alt="loading"
-             style={{display: imageHasLoaded? "none" : ""}}>
+             
+             id={imageHasLoaded? 'large-image-component-hidden-img' : 'large-image-component-shown-img'}
+             >
         </img>
         
         <img src={imageSrc}
              alt={alt}
-             width={width}
+             width={imgWidth}
              onLoad={() => setImageHasLoaded(true)}
-             style={{display: imageHasLoaded? "" : "none"}}>
+             
+             id={imageHasLoaded? 'large-image-component-shown-img' : 'large-image-component-hidden-img'}
+             >
         </img>
     </div>
   )

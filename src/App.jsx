@@ -1,4 +1,7 @@
 import PgTrains from './pages/PgTrains';
+
+import './stylesheets/App.css';
+
 import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -18,7 +21,7 @@ function App() {
 
       {/* START CODE FOR PAGE NAVIGATION*/}
       <nav>
-        <Link to="/">Home</Link>
+        <Link to="/"      >Home</Link>
         <Link to="/trains">Trains</Link>
         <hr></hr>
       </nav>

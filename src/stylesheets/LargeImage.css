@@ -1,0 +1,11 @@
+/*  This stylesheet only dictates when the loading spinner and the loaded image should be shown. 
+    Addtional styling, like the positioning of the spinner image and the displayed image, is done through a separate CSS stylesheet, preferably the CSS stylesheet file of the component(s) that use(s) the LargeImage.jsx component.
+*/
+
+#large-image-component-hidden-img{
+    display: none; /*Hides the image*/
+}
+
+#large-image-component-shown-img{
+    display: ""; /*Displays the image*/
+}
