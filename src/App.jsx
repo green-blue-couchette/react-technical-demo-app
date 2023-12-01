@@ -1,3 +1,4 @@
+import PgHome from './pages/PgHome';
 import PgTrains from './pages/PgTrains';
 
 import './stylesheets/App.css';
@@ -9,14 +10,7 @@ function App() {
   return (
     <>
       <header>
-        <p>
-          I built this web app to help myself re-learn React. 
-          Here, I collect different mini-applications to showcase my skills and try out ideas. I might incorporate different elements and ideas found here into other, standalone web apps. 
-          Things here may look incomplete or change. Stay tuned! - Oliver 
-        </p>
-        <p>  
-          Navigate the pages using the navbar.
-        </p>  
+        OLIVER'S REACT APP
       </header>
 
       {/* START CODE FOR PAGE NAVIGATION*/}
@@ -30,7 +24,7 @@ function App() {
       <main>
         {/* START CODE FOR PAGE CONTENT */}
         <Routes>
-          <Route path="/"         element={<h1>Use the navbar above!</h1>}/>
+          <Route path="/"         element={<PgHome/>}/>
           <Route path="/trains"   element={<PgTrains/>}/>
         </Routes>
         {/* END CODE FOR PAGE CONTENT */}
