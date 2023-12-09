@@ -1,0 +1,51 @@
+.not-found-page{
+    
+
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    text-align: center;
+}
+
+.not-found-page h2{
+    font-size: xx-large;
+    
+    color: palevioletred;
+    text-shadow: 3px 3px goldenrod;
+    /* Other cool color combos:
+    color: orange;
+    text-shadow: 3px 3px palevioletred;
+
+    color: papayawhip;
+    text-shadow: 3px 3px goldenrod;
+    */
+}
+
+.not-found-page h2:hover{
+    color: orange;
+    text-shadow: 3px 3px palevioletred;
+    /* Other cool color combos:
+    color: hotpink;
+    text-shadow: 3px 3px orange;
+
+    color: honeydew;
+    text-shadow: 3px 3px gainsboro;
+    */
+}
+
+.not-found-page .pageBody{
+    flex: 1; /*Take up all the available space. Works together with the "min-height: 70vh;" line*/
+    width: 70%;
+
+    /*DEBUG*/
+    /*
+    border: solid black;
+    background-color: green;
+    */
+}
+
+.not-found-page .pageBody iframe{
+    height: calc(70vh - 95px);
+    width: 100%;
+}
