@@ -4,6 +4,7 @@ import loading_spinner from '../assets/loading-spinner.gif';
 import '../stylesheets/LargeImage.css'
 
 export default function LargeImage({imageSrc, imgWidth, alt, stylingID}) {
+    /* stylingID is used to apply additional, instance-specific, CSS styling to this component. */
 
     const [imageHasLoaded, setImageHasLoaded] = useState(false);
     /** Case 1 (default): Image has not yet loaded, display spinner
@@ -12,7 +13,7 @@ export default function LargeImage({imageSrc, imgWidth, alt, stylingID}) {
      */
 
     /**If the imageSrc has changed, that means a new image has to be retrieved...
-     * So show a spinner until the new pic has fully loaded
+     * So show a spinner until the new pic has fully loaded.
      */    
     useEffect(() => {
         setImageHasLoaded(false);
