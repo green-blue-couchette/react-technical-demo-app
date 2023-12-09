@@ -6,13 +6,13 @@ import '../stylesheets/pgHome.css';
 
 export default function PgHome() {
   return (
-    <div className='homePage'>
+    <div className='home-page'>
 
-        <div className='pageHead'>
+        <div className='page-header'>
             <h1>Home</h1>
         </div>
         
-        <div className='pageBody'>
+        <div className='page-body'>
 
             <div className='article'>
                 <p>

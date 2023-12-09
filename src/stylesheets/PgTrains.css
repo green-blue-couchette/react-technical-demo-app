@@ -1,21 +1,21 @@
-.trainsPage .pageBody{
+.trains-page .page-body{
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
 }
 
-.trainsPage .bigTrainsPageContent{
+.trains-page .trains-page-content-big{
    padding: 5px;
    min-width: 500px;
    height: 415px;
 }
 
-.trainsPage .smallTrainsPageContent{
+.trains-page .trains-page-content-small{
    padding: 5px;
    min-width: 200px;
 }
 
-.trainsPage .disclaimer{
+.trains-page .disclaimer{
    margin: 10px 0px;
    
    color: red;

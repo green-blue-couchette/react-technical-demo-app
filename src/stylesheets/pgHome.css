@@ -1,25 +1,23 @@
-.homePage .pageBody{
+.home-page .page-body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-.homePage .article{
+.home-page .article{
     max-width: 500px;
 }
 
-.homePage .pageBody .signature{
+.home-page .page-body .signature{
     font-style: italic;
     margin: 20px;
 }
 
-.homePage .pageBody .decoration{
-    
-    flex-shrink: 5;
-    
+.home-page .page-body .decoration{
+    flex-shrink: 5;    
 }
 
-.homePage .pageBody .attribution{
+.home-page .page-body .attribution{
     color: gray;
     font-size: smaller;
 

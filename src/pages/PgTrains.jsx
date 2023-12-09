@@ -19,9 +19,9 @@ export default function Pg2Trains() {
   const [trainsPageImages, setTrainsPageImages] = useState(defaultTrainsPageImages);
 
   return (
-    <div className='trainsPage'>
+    <div className='trains-page'>
 
-      <div className='pageHead'>
+      <div className='page-header'>
         <h1>Trains page</h1>
 
         <p className='disclaimer'>
@@ -30,9 +30,9 @@ export default function Pg2Trains() {
         </p>
       </div>
       
-      <div className='pageBody'>
+      <div className='page-body'>
         {/** Picture of selected train type */}
-        <div className='bigTrainsPageContent'>
+        <div className='trains-page-content-big'>
           <LargeImage
             imageSrc={trainsPageImages.trainImage} 
             stylingID="large-image-component-on-trains-page-no-1"
@@ -48,12 +48,12 @@ export default function Pg2Trains() {
           </label>
         </div>
           
-        <div className='bigTrainsPageContent'>
+        <div className='trains-page-content-big'>
           <TrainAnnouncementPanel imagesState={trainsPageImages} setImagesState={setTrainsPageImages}/>
         </div>
 
         {/** Picture of selected railway operator */}
-        <div className='smallTrainsPageContent'>
+        <div className='trains-page-content-small'>
           <img src={trainsPageImages.railwayOperatorImage} alt="Railway operator"></img>
         </div>
 
