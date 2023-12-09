@@ -1,6 +1,6 @@
-import PgHome from './pages/PgHome';
-import PgTrains from './pages/PgTrains';
-import PgNotFound from './pages/PgNotFound';
+import Home from './pages/Home';
+import Trains from './pages/Trains';
+import NotFound from './pages/NotFound';
 
 import './stylesheets/App.css';
 
@@ -25,9 +25,9 @@ function App() {
       <main>
         {/* START CODE FOR PAGE CONTENT */}
         <Routes>
-          <Route path="*"         element={<PgNotFound/>}/>
-          <Route path="/"         element={<PgHome/>}/>
-          <Route path="/trains"   element={<PgTrains/>}/>
+          <Route path="*"         element={<NotFound/>}/>
+          <Route path="/"         element={<Home/>}/>
+          <Route path="/trains"   element={<Trains/>}/>
         </Routes>
         {/* END CODE FOR PAGE CONTENT */}
       </main>

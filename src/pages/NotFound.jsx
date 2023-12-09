@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../stylesheets/PgNotFound.css';
+import '../stylesheets/NotFound.css';
 
 export default function PgNotFound() {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cogwheels from '../assets/cogwheels.png';
 
-import '../stylesheets/pgHome.css';
+import '../stylesheets/Home.css';
 
 export default function PgHome() {
   return (
