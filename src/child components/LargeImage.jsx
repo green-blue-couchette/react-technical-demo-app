@@ -23,7 +23,7 @@ export default function LargeImage({imageSrc, imgWidth, alt, stylingID}) {
         <img src={loading_spinner}
              alt="loading"
              
-             id={imageHasLoaded? 'large-image-component-hidden-img' : 'large-image-component-shown-img'}
+             className={imageHasLoaded? 'hidden' : 'shown'}
              >
         </img>
         
@@ -32,7 +32,7 @@ export default function LargeImage({imageSrc, imgWidth, alt, stylingID}) {
              width={imgWidth}
              onLoad={() => setImageHasLoaded(true)}
              
-             id={imageHasLoaded? 'large-image-component-shown-img' : 'large-image-component-hidden-img'}
+             className={imageHasLoaded? 'shown' : 'hidden'}
              >
         </img>
     </div>

@@ -4,7 +4,7 @@
     flex-wrap: wrap;
 }
 
-.home-page .article{
+.home-page .page-body .article{
     max-width: 500px;
 }
 
@@ -14,10 +14,10 @@
 }
 
 .home-page .page-body .decoration{
-    flex-shrink: 5;    
+    flex-shrink: 5;
 }
 
-.home-page .page-body .attribution{
+.home-page .page-body .decoration .attribution{
     color: gray;
     font-size: smaller;
 

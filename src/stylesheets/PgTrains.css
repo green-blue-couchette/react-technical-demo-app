@@ -1,26 +1,26 @@
+.trains-page .page-header .disclaimer{
+   margin: 10px 0px;
+   
+   color: red;
+   font-weight: bold;
+   font-size: smaller;
+}
+
 .trains-page .page-body{
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
 }
 
-.trains-page .trains-page-content-big{
+.trains-page .page-body .trains-page-content-big{
    padding: 5px;
    min-width: 500px;
    height: 415px;
 }
 
-.trains-page .trains-page-content-small{
+.trains-page .page-body .trains-page-content-small{
    padding: 5px;
    min-width: 200px;
-}
-
-.trains-page .disclaimer{
-   margin: 10px 0px;
-   
-   color: red;
-   font-weight: bold;
-   font-size: smaller;
 }
 
 /*Styling the LargeImage component's instance from here, so future uses will not be affected by the same exact style rules*/

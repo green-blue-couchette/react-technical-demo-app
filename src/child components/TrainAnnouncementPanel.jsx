@@ -293,7 +293,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
         <section className='playback-controls'>
           <div className='input-row input-group-0'>
             <input
-              className='flexable-input-box'
+              className='full-remaining-width-input-element'
               id='train-announcement-panel-playback-play-button'
               type="button"
               defaultValue="Play announcement"
@@ -320,7 +320,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
             <div className='input-row'>
               <label htmlFor='announcement-intro-selector'>Announcement intro: </label>
               <select
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='announcement-intro-selector'
                 ref={announcementIntroRef}
                 onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)} >
@@ -342,7 +342,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
               </select>
 
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='train-number-input'
                 type="number"
                 defaultValue="1741"
@@ -356,7 +356,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
             <div className='input-row'>
               <label htmlFor='startingStation'>Starting station: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='startingStation'
                 type="text"
                 defaultValue="București"
@@ -367,7 +367,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
             <div className='input-row'>
               <label htmlFor='destinationStation'>Destination: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='destinationStation'
                 type="text"
                 defaultValue="Satu Mare"
@@ -382,7 +382,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
             <div className='input-row'>
               <label htmlFor='arrivalPlatform'>Arrives at platform: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='arrivalPlatform'
                 type="number"
                 defaultValue="1"
@@ -412,7 +412,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
               />
               <label htmlFor='fromDirection'>From direction: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='fromDirection'
                 type="text"
                 defaultValue="Sinaia"
@@ -430,7 +430,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
               />
               <label htmlFor='towardDirection'>Continues toward: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='towardDirection'
                 type="text"
                 defaultValue="Târgu Mureș, Baia Mare"
@@ -476,7 +476,7 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
               />
               <label htmlFor='noStopStations'>Does not stop at these stations: </label>
               <input
-                className='flexable-input-box'
+                className='full-remaining-width-input-element'
                 id='noStopStations'
                 type="text"
                 name="noStops"

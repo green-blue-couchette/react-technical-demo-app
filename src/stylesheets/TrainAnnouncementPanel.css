@@ -19,7 +19,7 @@
     background-color: var(--clf-cfr-grey);
 }
 
-.playback-icon-area{
+.train-announcement-panel-body .playback-icon-area{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,7 @@
     min-height: 64px;
 }
 
-.playback-icon-area img{
+.train-announcement-panel-body .playback-icon-area img{
     max-height: 64px;
 }
 
@@ -49,31 +49,31 @@ section{
     border: dashed;
     border-color: darkgoldenrod;
 }
-.flexable-input-box{
+.full-remaining-width-input-element{
     background-color: magenta;
 }
 */
 
-.input-group-0, input[type="button"]{
+.train-announcement-panel-body .input-group-0, input[type="button"]{
     height: 35px;
     font-size: large;
 }
 
-.input-group-1, .input-group-2, .input-group-3, .input-group-4, .input-group-5{
+.train-announcement-panel-body .input-group-1, .input-group-2, .input-group-3, .input-group-4, .input-group-5{
     margin: 15px 10px;
 }
 
-.input-row{
+.train-announcement-panel-body .input-row{
     display: flex;
     flex-direction: row;
 }
 
-.input-row select, input[type="text"], input[type="number"]{
+.train-announcement-panel-body .input-row select, input[type="text"], input[type="number"]{
     margin: 0px 5px;
 }
 
 /*These input boxes (select dropdown, text input, number input) that should take up the whole rest of the line*/
-.flexable-input-box{
+.train-announcement-panel-body .input-row .full-remaining-width-input-element{
     flex-grow: 1;
 }
 

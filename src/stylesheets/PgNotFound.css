@@ -8,7 +8,18 @@
     text-align: center;
 }
 
-.not-found-page h2{
+.not-found-page .page-body{
+    flex: 1; /*Take up all the available space. Works together with the "min-height: 70vh;" line*/
+    width: 70%;
+
+    /*DEBUG*/
+    /*
+    border: solid black;
+    background-color: green;
+    */
+}
+
+.not-found-page .page-body h2{
     font-size: xx-large;
     
     color: palevioletred;
@@ -22,7 +33,7 @@
     */
 }
 
-.not-found-page h2:hover{
+.not-found-page .page-body h2:hover{
     color: orange;
     text-shadow: 3px 3px palevioletred;
     /* Other cool color combos:
@@ -34,18 +45,7 @@
     */
 }
 
-.not-found-page .page-body{
-    flex: 1; /*Take up all the available space. Works together with the "min-height: 70vh;" line*/
-    width: 70%;
-
-    /*DEBUG*/
-    /*
-    border: solid black;
-    background-color: green;
-    */
-}
-
-.not-found-page .page-body iframe{
+.not-found-page .page-body iframe{  /* Styling to shrink the iframe height & width with respect to the browser window size. */
     height: calc(70vh - 95px);
     width: 100%;
 }
