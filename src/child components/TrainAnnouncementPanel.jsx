@@ -5,6 +5,8 @@ import CFR_BUCHAREST from '../assets/CFR_GLASUL_ROTILOR.wav';
 import loading_spinner from '../assets/loading-spinner.gif';
 import speaker from '../assets/speaker.gif';
 
+import '../stylesheets/TrainAnnouncementPanel.css';
+
 import * as credentials from '../credentials.js';
 
 export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
@@ -286,186 +288,235 @@ export default function TrainAnnouncementPanel({imagesState, setImagesState}) {
     <>
     
       {/** "Play Announcement" button */}
-      <div style={{ borderStyle:"solid", borderColor: "black", maxWidth: "500px", float: ""}}>
-      <input
-        style={{width:"100%"}}
-        type="button"
-        defaultValue="Play announcement"
-        onClick={makeAnnouncement} />
+      <div className='train-announcement-panel-body'>
 
-      {/**  Div for loading and loudspeaker gifs .
-       *    Renders contents conditionally.
-       */}
-      <div style={{textAlign: "center", minHeight: "64px", maxHeight: "64px"}}>
-        {  ("stopped" === announcementPlaybackState && <div></div>)
-        || ("fetching" === announcementPlaybackState && <img src={loading_spinner} style={{maxHeight: "64px"}} alt="animated loading icon"></img>)
-        || ("playing" == announcementPlaybackState && <img src={speaker} style={{maxHeight: "64px"}} alt="animated playback icon"></img>)
-        }
+        <section className='playback-controls'>
+          <div className='input-row input-group-0'>
+            <input
+              className='full-remaining-width-input-element'
+              id='train-announcement-panel-playback-play-button'
+              type="button"
+              defaultValue="Play announcement"
+              onClick={makeAnnouncement}
+            />
+          </div>
+        </section>
+
+        {/**  Div for loading and loudspeaker gifs .
+         *    Renders contents conditionally.
+         */}
+        <section className='playback-icon-area'>
+          {  ("stopped" === announcementPlaybackState && <div></div>)
+          || ("fetching" === announcementPlaybackState && <img src={loading_spinner} alt="animated loading icon"></img>)
+          || ("playing" == announcementPlaybackState && <img src={speaker} alt="animated playback icon"></img>)
+          }
+        </section>
+        
+        {/*Div that contains all the train data inputs*/}
+        <section className='inputs'>
+
+          {/** "Announcement intro" input */}
+          <div className='input-group-1'>
+            <div className='input-row'>
+              <label htmlFor='announcement-intro-selector'>Announcement intro: </label>
+              <select
+                className='full-remaining-width-input-element'
+                id='announcement-intro-selector'
+                ref={announcementIntroRef}
+                onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)} >
+                  <option value="Transylvania">Transylvania</option>
+                  <option value="Bucharest">Bucharest</option>
+              </select>
+            </div>
+
+              {/** Train code inputs */}
+            <div className='input-row'>
+              <label htmlFor='train-type-selector'>Train: </label>
+              <select
+                id='train-type-selector'
+                ref={trainTypeRef}
+                onChange={() => {handleSelectTrainType(); console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value);}} >
+                  <option value="IRN">IRN</option>
+                  <option value="IR">IR</option>
+                  <option value="R">R</option>
+              </select>
+
+              <input
+                className='full-remaining-width-input-element'
+                id='train-number-input'
+                type="number"
+                defaultValue="1741"
+                ref={trainNumberRef}
+              />
+            </div>
+          </div>
+
+          <div className='input-group-2'>
+            {/** "Starting station / destination station" inputs */}
+            <div className='input-row'>
+              <label htmlFor='startingStation'>Starting station: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='startingStation'
+                type="text"
+                defaultValue="București"
+                ref={startingStationRef}
+              />
+            </div>
+
+            <div className='input-row'>
+              <label htmlFor='destinationStation'>Destination: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='destinationStation'
+                type="text"
+                defaultValue="Satu Mare"
+                ref={destinationStationRef}
+              />
+            </div>
+          </div>
+          
+
+          <div className='input-group-3'>
+            {/** "Arrives at platform / multiple stations at this platform" inputs */}
+            <div className='input-row'>
+              <label htmlFor='arrivalPlatform'>Arrives at platform: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='arrivalPlatform'
+                type="number"
+                defaultValue="1"
+                ref={platformNumberRef}
+              />
+            </div>
+
+            <div className='input-row'>
+              <input
+                id='multipleTrainsAtPlatform'
+                type="checkbox"
+                onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}}
+              />
+              <label htmlFor='multipleTrainsAtPlatform'>Multiple trains at this platform</label>
+            </div>
+          </div>
+          
+
+          <div className='input-group-4'>
+            {/** "From direction / continues toward direction" inputs */}
+            {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
+            <div className='input-row'>
+              <input
+                id='fromDirection'
+                type="checkbox"
+                onChange={() => setFromDirection(!fromDirection)}
+              />
+              <label htmlFor='fromDirection'>From direction: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='fromDirection'
+                type="text"
+                defaultValue="Sinaia"
+                disabled={!fromDirection}
+                ref={fromDirectionStations}
+              />
+            </div>
+
+            {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
+            <div className='input-row'>
+              <input
+                id='towardDirection'
+                type="checkbox"
+                onChange={() => setContinuesToward(!continuesToward)}
+              />
+              <label htmlFor='towardDirection'>Continues toward: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='towardDirection'
+                type="text"
+                defaultValue="Târgu Mureș, Baia Mare"
+                disabled={!continuesToward}
+                ref={continuesTowardStations}
+              />
+            </div>
+          </div>
+          
+
+          <div className='input-group-5'>
+            {/** "Train skips some stations" inputs */}
+            {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
+            <div className='input-row'>
+              <input
+                id='stopsAtAllStations'
+                type="checkbox"
+                defaultChecked={!stopsAtAllStations}
+                onChange={() => {setStopsAtAllStations(!stopsAtAllStations);}}
+              />
+              <label htmlFor='stopsAtAllStations' >Train skips some stations</label>
+            </div>
+            
+            <div className='input-row'>
+              <input
+                id='onlyFinalStation'
+                type="radio"
+                name="noStops"
+                disabled={stopsAtAllStations}
+                onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}}
+                defaultChecked={onlyStopsAtFinalStation}
+              />
+              <label htmlFor='onlyFinalStation'>Only stops at final station</label>
+            </div>
+            
+            <div className='input-row'>
+              <input
+                id='noStopStations'
+                type="radio"
+                name="noStops"
+                onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}}
+                disabled={stopsAtAllStations}
+              />
+              <label htmlFor='noStopStations'>Does not stop at these stations: </label>
+              <input
+                className='full-remaining-width-input-element'
+                id='noStopStations'
+                type="text"
+                name="noStops"
+                defaultValue="Ciceu"
+                disabled={stopsAtAllStations || onlyStopsAtFinalStation}
+                ref={doesNotStopAtSelectedStationsRef}
+              />
+            </div>
+          </div>
+          
+          
+          {/** Structure of the Announcement form...
+           * (For future versions:
+           * - <dropdown field>: Operator (Amtrak (USA), SJ (Sweden), MÁV (Hungary), CFR (Romania))
+           *    Lets user choose which voice will make the announcement, which train type is allowed in the "Train type" dropdown, which default values the form's fields are filled with, which train photos and railway operator images are shown.)
+           * 
+           * x Announcement style <dropdown field>
+           * 
+           * x Train:
+           * x Train type (eg IRN, InterCity) <dropdown field ('select' tag)>
+           * x Train number <number field>
+           * 
+           * x Starting Station <text field>
+           * x Destination station <text field>
+           * 
+           * x Arrives at platform: <number input field>
+           * x Checkbox: Multiple trains at platform. Make sure you board the correct train.
+           * 
+           * x Checkbox: From direction <text field>
+           * x Checkbox: Continues toward <text field>
+           * 
+           * x Checkbox: Train skips some stations <label>
+           * x Radio Button: "Only stops at final station": <text field>
+           * x Radio button: "Does not stop at these stations:" <text field>
+           * 
+           */}
+        </section>
+
       </div>
-      
-      {/** "Announcement intro" input */}
-      <label htmlFor="announcementIntro">Announcement intro: </label>
-      <select
-        style={{width: "65%"}}
-        id="announcementIntro"
-        ref={announcementIntroRef}
-        onChange={() => console.log("Announcement intro was selected:", announcementIntroRef.current.value)} >
-          <option value="Transylvania">Transylvania</option>
-          <option value="Bucharest">Bucharest</option>
-      </select>
-      <br></br>
 
-      {/** Train code inputs */}
-      <label htmlFor="trainCode">Train: </label>
-      <select
-        style={{width: "75px"}}
-        id="trainCode" ref={trainTypeRef}
-        onChange={() => {handleSelectTrainType(); console.log("Train type was selected:", trainTypeRef.current.value, trainNumberRef.current.value);}} >
-          <option value="IRN">IRN</option>
-          <option value="IR">IR</option>
-          <option value="R">R</option>
-      </select>
-
-      <input
-        type="number"
-        id="trainCode"
-        defaultValue="1741"
-        ref={trainNumberRef} />
-      <br></br>
-      <br></br>
-
-
-      {/** "Starting station / destination station" inputs */}
-      <label htmlFor="startingStation">Starting station: </label>
-      <input
-        type="text"
-        id="startingStation"
-        defaultValue="București"
-        ref={startingStationRef} />
-      <br></br>
-
-      <label htmlFor="destinationStation">Destination: </label>
-      <input
-        type="text"
-        id="destinationStation"
-        defaultValue="Satu Mare"
-        ref={destinationStationRef} />
-      <br></br>
-      <br></br>
-
-
-      {/** "Arrives at platform / multiple stations at this platform" inputs */}
-      <label htmlFor="arrivalPlatform">Arrives at platform: </label>
-      <input
-        type="number"
-        id="arrivalPlatform"
-        defaultValue="1"
-        ref={platformNumberRef} />
-      <br></br>
-
-      <input
-        type="checkbox"
-        id="multipleTrainsAtPlatform"
-        onChange={() => {setMultipleTrainsAtPlatform(!multipleTrainsAtPlatform);}} />
-      <label htmlFor="multipleTrainsAtPlatform">Multiple trains at this platform</label>
-      <br></br>
-      <br></br>
-
-
-      {/** "From direction / continues toward direction" inputs */}
-      {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input
-        type="checkbox"
-        id="fromDirection"
-        onChange={() => setFromDirection(!fromDirection)} />
-      <label htmlFor="fromDirection">From direction: </label>
-      <input
-        type="text"
-        id="fromDirection"
-        defaultValue="Sinaia"
-        disabled={!fromDirection}
-        ref={fromDirectionStations} />
-      <br></br>
-
-      {/**This checkbox enables/disables the accompanying input text field. Text field keeps the text regardless. */}
-      <input
-        type="checkbox"
-        id="towardDirection"
-        onChange={() => setContinuesToward(!continuesToward)} />
-      <label htmlFor="towardDirection">Continues toward: </label>
-      <input
-        type="text"
-        id="towardDirection"
-        defaultValue="Târgu Mureș, Baia Mare"
-        disabled={!continuesToward}
-        ref={continuesTowardStations} />
-      <br></br>
-      <br></br>
-
-
-      {/** "Train skips some stations" inputs */}
-      {/**This checkbox enables/disables the below two radio buttons and the accompanying input text field. The text field keeps the text regardless.*/}
-      <input
-        type="checkbox"
-        id="stopsAtAllStations"
-        defaultChecked={!stopsAtAllStations}
-        onChange={() => {setStopsAtAllStations(!stopsAtAllStations);}} />
-      <label htmlFor="stopsAtAllStations" >Train skips some stations</label>
-      <br></br>
-      
-      <input
-        type="radio"
-        id="onlyFinalStation"
-        name="noStops"
-        disabled={stopsAtAllStations}
-        onChange={() => {setOnlyStopsAtFinalStation(true); console.log("Only stops at FINAL STATION");}}
-        defaultChecked={onlyStopsAtFinalStation} />
-      <label htmlFor="onlyFinalStation">Only stops at final station</label>
-      <br></br>
-      
-      <input
-        type="radio"
-        id="noStopStations"
-        name="noStops"
-        onChange={() => {setOnlyStopsAtFinalStation(false); console.log("Skips SPECIFIC STATIONS");}}
-        disabled={stopsAtAllStations} />
-      <label htmlFor="noStopStations">Does not stop at these stations: </label>
-      <input
-        type="text"
-        id="noStopStations"
-        name="noStops"
-        defaultValue="Ciceu"
-        disabled={stopsAtAllStations || onlyStopsAtFinalStation}
-        ref={doesNotStopAtSelectedStationsRef} />
-      <br></br>
-      <br></br>
-      
-      {/** Structure of the Announcement form...
-       * (For future versions:
-       * - <dropdown field>: Operator (Amtrak (USA), SJ (Sweden), MÁV (Hungary), CFR (Romania))
-       *    Lets user choose which voice will make the announcement, which train type is allowed in the "Train type" dropdown, which default values the form's fields are filled with, which train photos and railway operator images are shown.)
-       * 
-       * x Announcement style <dropdown field>
-       * 
-       * x Train:
-       * x Train type (eg IRN, InterCity) <dropdown field ('select' tag)>
-       * x Train number <number field>
-       * 
-       * x Starting Station <text field>
-       * x Destination station <text field>
-       * 
-       * x Arrives at platform: <number input field>
-       * x Checkbox: Multiple trains at platform. Make sure you board the correct train.
-       * 
-       * x Checkbox: From direction <text field>
-       * x Checkbox: Continues toward <text field>
-       * 
-       * x Checkbox: Train skips some stations <label>
-       * x Radio Button: "Only stops at final station": <text field>
-       * x Radio button: "Does not stop at these stations:" <text field>
-       * 
-       */}
-      </div>
     </>
   )
 }
