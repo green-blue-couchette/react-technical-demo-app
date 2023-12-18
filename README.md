@@ -37,5 +37,5 @@ I recently trashed some pages that I wasn't interested in further developing, an
 I am linking to photos, sound snippets and trademarks that belong to third parties to decorate my web app. I claim no ownership of these materials. I aim to provide attribution info wherever appropriate.
 
 ## Screenshots
+![Home page](https://github.com/green-blue-couchette/react-technical-demo-app/assets/22916435/cf338f9f-6e65-4502-b55a-9dbcfa8ec364)
 ![demo-react-app-new-compressed](https://github.com/green-blue-couchette/react-technical-demo-app/assets/22916435/773addcd-53a0-4e2c-9bd2-939608868132)
-
